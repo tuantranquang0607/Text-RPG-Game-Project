@@ -1,6 +1,6 @@
 # Text RPG Game-Project
 
-I made this project a practice and an inception for my final video game project because I'd need an actual video game to graduate.<br><br>
+I made this project a practice and inception for my final video game project using C++ because I'd need an actual video game to graduate.<br><br>
 
 Source: https://youtu.be/B2RPgKxsEVs?si=HYEp-2M8BCUB6IZz <br>
 Source Code: https://github.com/dwjclark11/TextRPG
