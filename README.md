@@ -1,4 +1,4 @@
-# Text-RPG-Game-Project
+# Text-Based-RPG-Game
 
 I made this project a practice and inception for my final video game project using C++ because I would need an actual video game to graduate.<br><br>
 
