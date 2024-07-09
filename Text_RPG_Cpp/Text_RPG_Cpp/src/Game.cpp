@@ -5,7 +5,9 @@
 
 bool Game::Init()
 {
-	return true;
+	m_pConsole = std::make_unique<Console>();
+
+	return false;
 }
 
 void Game::ProcessInput()

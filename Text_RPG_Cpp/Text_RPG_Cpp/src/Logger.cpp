@@ -36,7 +36,7 @@ void Logger::Error(const std::string_view message, std::source_location location
 
     SetConsoleTextAttribute(hConsole, RED);
 
-    std::cout << "ERROR: " << CurrentDate() << " - " << message << "FILE: " << location.function_name() << "LINE: " << location.function_name() << "\n";
+    std::cout << "ERROR: " << CurrentDate() << " - " << message << "FILE: " << location.file_name() << "FUNC: " << location.function_name() << "LINE: " << location.line() << "\n";
 
     SetConsoleTextAttribute(hConsole, WHITE);
 }
