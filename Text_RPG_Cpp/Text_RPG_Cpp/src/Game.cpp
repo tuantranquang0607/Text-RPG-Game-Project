@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Logger.h"
 
 #include <iostream>
 
@@ -9,17 +10,17 @@ bool Game::Init()
 
 void Game::ProcessInput()
 {
-	std::cout << "Process Inputs\n";
+	TRPG_LOG("Process Inputs\n");
 }
 
 void Game::Update()
 {
-	std::cout << "Update\n";
+	TRPG_ERROR("Update\n");
 }
 
 void Game::Draw()
 {
-	std::cout << "Draw\n";
+	TRPG_LOG("Draw\n");
 }
 
 Game::Game(): m_bIsRunning(true)
