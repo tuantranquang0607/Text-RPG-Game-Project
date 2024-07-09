@@ -1,6 +1,26 @@
 #include "Console.h"
 #include "Logger.h"
 
+#include <vector>
+
+bool Console::SetTextColor(int size, int x, int y, HANDLE handle, WORD color)
+{
+	COORD pos = { x, y };
+
+	std::vector<WORD> write(size, color);
+
+	DWORD written = 0;
+	LPDWORD lpNumWritten = &written;
+
+	if (!WriteConsoleOutputAttribute(handle, &write[0], size, pos, lpNumWritten))
+	{
+		TRPG_ERROR("Failed to write the console output attribute.");
+		return false;
+	}
+
+	return true;
+}
+
 Console::Console() : m_pScreen(nullptr)
 {
 	// Initialize the screen buffer
@@ -24,14 +44,88 @@ Console::Console() : m_pScreen(nullptr)
 
 	COORD font_size = GetConsoleFontSize(GetStdHandle(STD_OUTPUT_HANDLE), font_info.nFont);
 
-	TRPG_LOG("FONT_X: " + std::to_string(font_size.X));
-	TRPG_LOG("FONT_Y: " + std::to_string(font_size.Y));
+	/*TRPG_LOG("FONT_X: " + std::to_string(font_size.X));
+	TRPG_LOG("FONT_Y: " + std::to_string(font_size.Y));*/
+
+	int actual_screen_x = (SCREEN_WIDTH + 1) * font_size.X;
+	int actual_screen_y = (SCREEN_HEIGHT + 2)* font_size.Y;
+
+	int pos_x = GetSystemMetrics(SM_CXSCREEN) / 2 - (actual_screen_x / 2);
+	int pos_y = GetSystemMetrics(SM_CYSCREEN) / 2 - (actual_screen_y / 2);
+
+	// Set the size and position of the console window
+	if (!MoveWindow(m_hConsoleWindow, pos_x, pos_y, actual_screen_x, actual_screen_y, TRUE))
+	{
+		throw ("Failed to set and move the console window.");
+	}
+
+	// Clear the screen buffer
+	ClearBuffer();
+
+	// Create the screen buffer
+	m_hConsole = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
+
+	if (!m_hConsole)
+	{
+		throw ("Failed to create the console screen buffer.");
+	}
+
+	// Set the buffer to be active
+	if (!SetConsoleActiveScreenBuffer(m_hConsole))
+	{
+		throw ("Failed to set the active screen buffer.");
+	}
+
+	// Hide the cursor
+	if (!ShowConsoleCursor(false))
+	{
+		throw ("Failed to hide the console cursor.");
+	}
+
+
 }
 
 Console::~Console()
 {
 }
 
+void Console::ClearBuffer()
+{
+	// Set all the values of the buffer to an empty space
+	for (int i = 0; i < BUFFER_SIZE; i++)
+	{
+		m_pScreen[i] = L' ';
+	}
+
+	// Reset all the buffer to white
+	SetTextColor(BUFFER_SIZE, 0, 0, m_hConsole, WHITE);
+}
+
 void Console::Write(int x, int y, const std::wstring& text, WORD color)
 {
+	SetTextColor(text.size(), x, y, m_hConsole, color);
+
+	int pos = y * SCREEN_WIDTH + x;
+
+	swprintf(&m_pScreen[pos], BUFFER_SIZE, text.c_str());
+}
+
+void Console::Draw()
+{
+	WriteConsoleOutputCharacter(m_hConsole, m_pScreen.get(), BUFFER_SIZE, { 0, 0 }, &m_BytesWritten);
+}
+
+bool Console::ShowConsoleCursor(bool show)
+{
+	CONSOLE_CURSOR_INFO cursorInfo;
+
+	if (!GetConsoleCursorInfo(m_hConsole, &cursorInfo))
+	{
+		TRPG_ERROR("Failed to get the console cursor info.");
+		return false;
+	}
+
+	cursorInfo.bVisible = show;
+
+	return SetConsoleCursorInfo(m_hConsole, &cursorInfo);
 }

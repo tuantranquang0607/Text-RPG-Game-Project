@@ -5,24 +5,38 @@
 
 bool Game::Init()
 {
-	m_pConsole = std::make_unique<Console>();
+	try 
+	{
+		m_pConsole = std::make_unique<Console>();
+	}
+	catch (const std::exception& e)
+	{
+		std::string error = e.what();
+		TRPG_ERROR(error);
+		return false;
+	}
 
-	return false;
+	/*m_pConsole = std::make_unique<Console>();*/
+
+	return true;
 }
 
 void Game::ProcessInput()
 {
-	TRPG_LOG("Process Inputs\n");
+	/*TRPG_LOG("Process Inputs\n");*/
 }
 
 void Game::Update()
 {
-	TRPG_ERROR("Update\n");
+	/*TRPG_ERROR("Update\n");*/
 }
 
 void Game::Draw()
 {
-	TRPG_LOG("Draw\n");
+	/*TRPG_LOG("Draw\n");*/
+
+	m_pConsole->Write(10, 10, L"Hello World!!!", RED);
+	m_pConsole->Draw();
 }
 
 Game::Game(): m_bIsRunning(true)
