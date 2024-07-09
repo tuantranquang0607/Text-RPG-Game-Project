@@ -12,7 +12,7 @@ std::string Logger::CurrentDate()
 {
     std::time_t now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 
-    std::string output{ 30, '\0' };
+    std::string output(30, '\0');
 
     std::strftime(&output[0], output.size(), "%y-%m-%d %H:%M:%S", std::localtime(&now));
 
