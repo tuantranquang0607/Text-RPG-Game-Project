@@ -21,7 +21,11 @@ bool Game::Init()
 
 	/*m_pConsole = std::make_unique<Console>();*/
 
+	// Get the handle to the console input.
 	m_hConsoleIn = GetStdHandle(STD_INPUT_HANDLE);
+
+	// Create a unique_ptr to a new Keyboard object.
+	m_pKeyboard = std::make_unique<Keyboard>();
 
 	// If no exceptions are thrown, return true.
 	return true;
@@ -82,12 +86,20 @@ void Game::ProcessEvents()
 void Game::ProcessInputs()
 {
 	/*TRPG_LOG("Process Inputs\n");*/
+
+	if (m_pKeyboard->IsKeyJustPressed(KEY_ESCAPE))
+	{
+		m_bIsRunning = false;
+	}
 }
 
 // Update the game state. 
 void Game::Update()
 {
 	/*TRPG_ERROR("Update\n");*/
+
+	// Update the keyboard.
+	m_pKeyboard->Update();
 }
 
 // Draw the game state.
@@ -105,19 +117,22 @@ void Game::Draw()
 // Handle key events.
 void Game::KeyEventProcess(KEY_EVENT_RECORD keyEvent)
 {
-	// If the key event is a key press, output "Key Pressed." followed by the virtual key code.
+	// If the key event is key down, call OnKeyDown. Otherwise, call OnKeyUp.
 	if (keyEvent.bKeyDown)
 	{
-		std::cout << "Key Pressed." << keyEvent.wVirtualKeyCode << std::endl;
+		m_pKeyboard->OnKeyDown(keyEvent.wVirtualKeyCode);
 	}
 	else
 	{
-		std::cout << "Key Released." << keyEvent.wVirtualKeyCode << std::endl;
+		m_pKeyboard->OnKeyUp(keyEvent.wVirtualKeyCode);
 	}
 }
 
-// Constructor for the Game class. Initializes m_bIsRunning to true.
-Game::Game(): m_bIsRunning(true)
+// Constructor for the Game class. 
+// Initializes m_bIsRunning to true. This means the game is running by default. 
+// Set m_pKeyboard to nullptr. This means it doesn't point to anything initially.
+// Set m_pConsole to nullptr. This means it doesn't point to anything initially.
+Game::Game(): m_bIsRunning(true), m_pKeyboard(nullptr), m_pConsole(nullptr)
 {
 
 }
@@ -137,11 +152,11 @@ void Game::Run()
 		m_bIsRunning = false;
 	}
 
-	// While the game is running, process input, update the game state, and draw the game state.
+	// While the game is running, process input, process events, update the game state, and draw the game state.
 	while (m_bIsRunning)
 	{
-		ProcessInputs();
 		ProcessEvents();
+		ProcessInputs();
 		Update();
 		Draw();
 	}

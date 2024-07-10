@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Console.h"
+#include "inputs/Keyboard.h"
 
 // Declare the Game class.
 class Game 
@@ -11,6 +12,9 @@ private:
 
 	// A unique pointer to a Console object. This represents the console where the game is displayed.
 	std::unique_ptr<Console> m_pConsole;
+
+	// A unique pointer to a Keyboard object. This represents the keyboard input for the game.
+	std::unique_ptr<Keyboard> m_pKeyboard;
 
 	// A DWORD variable to keep track of the number of events read from the console input.
 	DWORD m_NumRead;
