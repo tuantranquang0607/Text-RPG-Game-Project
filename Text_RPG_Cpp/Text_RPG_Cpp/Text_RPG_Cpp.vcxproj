@@ -133,12 +133,16 @@
   <ItemGroup>
     <ClCompile Include="src\Console.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\inputs\Keyboard.cpp" />
     <ClCompile Include="src\Logger.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Console.h" />
     <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\inputs\Button.h" />
+    <ClInclude Include="src\inputs\Keyboard.h" />
+    <ClInclude Include="src\inputs\Keys.h" />
     <ClInclude Include="src\Logger.h" />
     <ClInclude Include="src\utilities\Colors.h" />
   </ItemGroup>
