@@ -21,12 +21,65 @@ bool Game::Init()
 
 	/*m_pConsole = std::make_unique<Console>();*/
 
+	m_hConsoleIn = GetStdHandle(STD_INPUT_HANDLE);
+
 	// If no exceptions are thrown, return true.
 	return true;
 }
 
+// Process events such as player input.
+void Game::ProcessEvents()
+{
+	// Geth the number of console inputs.
+	if (!GetNumberOfConsoleInputEvents(m_hConsoleIn, &m_NumRead)) 
+	{
+		// If getting the number of console input events fails, log an error.
+		DWORD error = GetLastError();
+
+		TRPG_ERROR("Failed to get the number of console input events. Error code: " + std::to_string(error));
+
+		return;
+	}
+
+	// If there are no console input events, return.
+	if (m_NumRead <= 0)
+	{
+		return;
+	}
+
+	// Peek at the console input.
+	if (!PeekConsoleInput(m_hConsoleIn, m_InRecBuf, 128, &m_NumRead))
+	{
+		// If peeking at the console input fails, log an error.
+		DWORD error = GetLastError();
+
+		TRPG_ERROR("Failed to peek events, Error code: " + error);
+
+		return;
+	}
+
+	// Read the console input.
+	for (int i = 0; i < m_NumRead; i++)
+	{
+		// Switch on the event type.
+		switch (m_InRecBuf[i].EventType) 
+		{
+			case KEY_EVENT:
+				KeyEventProcess(m_InRecBuf[i].Event.KeyEvent);
+
+				break;
+
+			default:
+				break;
+		}
+	}
+
+	// Clear or Flush other input events.
+	FlushConsoleInputBuffer(m_hConsoleIn);
+}
+
 // Process player input. 
-void Game::ProcessInput()
+void Game::ProcessInputs()
 {
 	/*TRPG_LOG("Process Inputs\n");*/
 }
@@ -47,6 +100,20 @@ void Game::Draw()
 
 	// Draw the console.
 	m_pConsole->Draw();
+}
+
+// Handle key events.
+void Game::KeyEventProcess(KEY_EVENT_RECORD keyEvent)
+{
+	// If the key event is a key press, output "Key Pressed." followed by the virtual key code.
+	if (keyEvent.bKeyDown)
+	{
+		std::cout << "Key Pressed." << keyEvent.wVirtualKeyCode << std::endl;
+	}
+	else
+	{
+		std::cout << "Key Released." << keyEvent.wVirtualKeyCode << std::endl;
+	}
 }
 
 // Constructor for the Game class. Initializes m_bIsRunning to true.
@@ -73,7 +140,8 @@ void Game::Run()
 	// While the game is running, process input, update the game state, and draw the game state.
 	while (m_bIsRunning)
 	{
-		ProcessInput();
+		ProcessInputs();
+		ProcessEvents();
 		Update();
 		Draw();
 	}
