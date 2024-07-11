@@ -173,7 +173,7 @@ void Game::KeyEventProcess(KEY_EVENT_RECORD keyEvent)
 	}
 }
 
-// Constructor for the Game class. 
+// Constructor for the Game class and initialize member variables in the initializer list.
 Game::Game(): m_bIsRunning(true), m_pKeyboard(nullptr), m_pConsole(nullptr), m_pStateMachine(nullptr)
 {
 

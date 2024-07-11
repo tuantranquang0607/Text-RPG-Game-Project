@@ -6,7 +6,6 @@
 #include <memory>
 #include <string>
 
-// Declare the Console class.
 class Console
 {
 private:
@@ -18,10 +17,8 @@ private:
 	// Handles to the console and console window.
 	HANDLE m_hConsole;
 	HWND m_hConsoleWindow;
-
 	// A RECT structure that defines the dimensions of the console window.
 	RECT m_ConsoleWindowRect;
-
 	// The number of characters written to the console.
 	DWORD m_BytesWritten;
 
@@ -34,16 +31,13 @@ private:
 public:
 	// The constructor for the Console class.
 	Console();
-
 	// The destructor for the Console class.
 	~Console();
 
 	// A public method to clear the screen buffer.
 	void ClearBuffer();
-
 	// A public method to write text to the console.
 	void Write(int x, int y, const std::wstring& text, WORD color = WHITE);
-
 	// A public method to draw the buffer to the console.
 	void Draw();
 

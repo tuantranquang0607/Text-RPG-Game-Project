@@ -19,19 +19,15 @@ public:
 
 	// A method to update the state of the keys.
 	void Update();
-
 	// A method to handle a key press event.
 	void OnKeyDown(int key);
-
 	// A method to handle a key release event.
 	void OnKeyUp(int key);
 
 	// A method to check if a key is being held down.
 	bool IsKeyHeld(int key) const;
-
 	// A method to check if a key was just pressed.
 	bool IsKeyJustPressed(int key) const;
-
 	// A method to check if a key was just released.
 	bool IsKeyJustReleased(int key) const;
 };
