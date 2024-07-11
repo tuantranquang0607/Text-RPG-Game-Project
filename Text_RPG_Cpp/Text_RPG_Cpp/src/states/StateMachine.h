@@ -25,5 +25,5 @@ public:
 		return m_States.empty(); 
 	}
 
-	StatePtr& GetCurrentState();
+	StatePtr & GetCurrentState();
 };

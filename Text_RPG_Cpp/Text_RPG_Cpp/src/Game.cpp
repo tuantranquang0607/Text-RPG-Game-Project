@@ -100,11 +100,13 @@ void Game::ProcessInputs()
 		m_bIsRunning = false;
 	}
 
-	if (!m_pStateMachine->Empty())
+	if (m_pStateMachine->Empty())
 	{
 		TRPG_ERROR("No state in the state machine to process inputs.");
 
 		m_bIsRunning = false;
+
+		return;
 	}
 
 	m_pStateMachine->GetCurrentState()->ProcessInputs();
@@ -116,7 +118,7 @@ void Game::Update()
 	/*TRPG_ERROR("Update\n");*/
 
 	// If there is no current state in the state machine, log an error and set m_bIsRunning to false.
-	if (!m_pStateMachine->Empty()) 
+	if (m_pStateMachine->Empty()) 
 	{
 		TRPG_ERROR("No state in the state machine to update.");
 
@@ -141,11 +143,13 @@ void Game::Draw()
 	m_pConsole->Write(10, 10, L"Hello World!!!", RED);
 
 	// If there is no current state in the state machine, log an error and set m_bIsRunning to false.
-	if (!m_pStateMachine->Empty()) 
+	if (m_pStateMachine->Empty()) 
 	{
 		TRPG_ERROR("No state in the state machine to draw.");
 
 		m_bIsRunning = false;
+
+		return;
 	}
 
 	// Clear the console.
@@ -170,9 +174,6 @@ void Game::KeyEventProcess(KEY_EVENT_RECORD keyEvent)
 }
 
 // Constructor for the Game class. 
-// Initializes m_bIsRunning to true. This means the game is running by default. 
-// Set m_pKeyboard to nullptr. This means it doesn't point to anything initially.
-// Set m_pConsole to nullptr. This means it doesn't point to anything initially.
 Game::Game(): m_bIsRunning(true), m_pKeyboard(nullptr), m_pConsole(nullptr), m_pStateMachine(nullptr)
 {
 
