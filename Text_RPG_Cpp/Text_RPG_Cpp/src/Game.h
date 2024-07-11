@@ -4,7 +4,6 @@
 #include "inputs/Keyboard.h"
 #include "states/StateMachine.h"
 
-// Declare the Game class.
 class Game 
 {
 private:
@@ -13,19 +12,15 @@ private:
 
 	// A unique pointer to a Console object. This represents the console where the game is displayed.
 	std::unique_ptr<Console> m_pConsole;
-
 	// A unique pointer to a Keyboard object. This represents the keyboard input for the game.
 	std::unique_ptr<Keyboard> m_pKeyboard;
-
 	// A unique pointer to a StateMachine object. This represents the state machine that manages the game states.
 	std::unique_ptr<StateMachine> m_pStateMachine;
 
 	// A DWORD variable to keep track of the number of events read from the console input.
-	DWORD m_NumRead;
-	
+	DWORD m_NumRead;	
 	// An array of INPUT_RECORD structures to store the input records read from the console input.
 	INPUT_RECORD m_InRecBuf[128];
-
 	// A HANDLE variable to store the handle to the console input.
 	HANDLE m_hConsoleIn;
 
@@ -34,23 +29,18 @@ private:
 
 	// A private method to process events such as player input.
 	void ProcessEvents();
-
 	// A private method to process player input.
 	void ProcessInputs();
-
 	// A private method to update the game state.
 	void Update();
-
 	// A private method to draw the game state.
 	void Draw();
-
 	// A private method to handle key events.
 	void KeyEventProcess(KEY_EVENT_RECORD keyEvent);
 
 public:
 	// The constructor for the Game class.
 	Game();
-
 	// The destructor for the Game class.
 	~Game();
 

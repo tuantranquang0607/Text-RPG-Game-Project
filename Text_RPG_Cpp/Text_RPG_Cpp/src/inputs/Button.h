@@ -1,6 +1,5 @@
 #pragma once
 
-// Define the Button struct.
 struct Button 
 {
 	// A boolean variable to keep track of whether the button is down.
