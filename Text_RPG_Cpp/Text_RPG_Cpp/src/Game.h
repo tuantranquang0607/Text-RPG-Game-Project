@@ -2,6 +2,7 @@
 
 #include "Console.h"
 #include "inputs/Keyboard.h"
+#include "states/StateMachine.h"
 
 // Declare the Game class.
 class Game 
@@ -15,6 +16,9 @@ private:
 
 	// A unique pointer to a Keyboard object. This represents the keyboard input for the game.
 	std::unique_ptr<Keyboard> m_pKeyboard;
+
+	// A unique pointer to a StateMachine object. This represents the state machine that manages the game states.
+	std::unique_ptr<StateMachine> m_pStateMachine;
 
 	// A DWORD variable to keep track of the number of events read from the console input.
 	DWORD m_NumRead;
