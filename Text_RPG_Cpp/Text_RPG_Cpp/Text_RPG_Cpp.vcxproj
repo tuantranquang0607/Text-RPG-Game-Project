@@ -136,6 +136,8 @@
     <ClCompile Include="src\inputs\Keyboard.cpp" />
     <ClCompile Include="src\Logger.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\states\GameState.cpp" />
+    <ClCompile Include="src\states\StateMachine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Console.h" />
@@ -144,6 +146,9 @@
     <ClInclude Include="src\inputs\Keyboard.h" />
     <ClInclude Include="src\inputs\Keys.h" />
     <ClInclude Include="src\Logger.h" />
+    <ClInclude Include="src\states\GameState.h" />
+    <ClInclude Include="src\states\IState.h" />
+    <ClInclude Include="src\states\StateMachine.h" />
     <ClInclude Include="src\utilities\Colors.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

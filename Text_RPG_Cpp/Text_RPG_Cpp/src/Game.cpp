@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Logger.h"
+#include "states/GameState.h"
 
 #include <iostream>
 
@@ -26,6 +27,12 @@ bool Game::Init()
 
 	// Create a unique_ptr to a new Keyboard object.
 	m_pKeyboard = std::make_unique<Keyboard>();
+
+	// Create a unique_ptr to a new StateMachine object.
+	m_pStateMachine = std::make_unique<StateMachine>();
+
+	// Push a new GameState onto the state machine.
+	m_pStateMachine->PushState(std::make_unique<GameState>(*m_pKeyboard, *m_pStateMachine));
 
 	// If no exceptions are thrown, return true.
 	return true;
@@ -87,16 +94,41 @@ void Game::ProcessInputs()
 {
 	/*TRPG_LOG("Process Inputs\n");*/
 
+	// If the escape key is pressed, set m_bIsRunning to false.
 	if (m_pKeyboard->IsKeyJustPressed(KEY_ESCAPE))
 	{
 		m_bIsRunning = false;
 	}
+
+	if (m_pStateMachine->Empty())
+	{
+		TRPG_ERROR("No state in the state machine to process inputs.");
+
+		m_bIsRunning = false;
+
+		return;
+	}
+
+	m_pStateMachine->GetCurrentState()->ProcessInputs();
 }
 
 // Update the game state. 
 void Game::Update()
 {
 	/*TRPG_ERROR("Update\n");*/
+
+	// If there is no current state in the state machine, log an error and set m_bIsRunning to false.
+	if (m_pStateMachine->Empty()) 
+	{
+		TRPG_ERROR("No state in the state machine to update.");
+
+		m_bIsRunning = false;
+
+		return;
+	}
+
+	// Update the current state.
+	m_pStateMachine->GetCurrentState()->Update();
 
 	// Update the keyboard.
 	m_pKeyboard->Update();
@@ -109,6 +141,19 @@ void Game::Draw()
 
 	// Write "Hello World!!!" in red at position (10, 10) on the console.
 	m_pConsole->Write(10, 10, L"Hello World!!!", RED);
+
+	// If there is no current state in the state machine, log an error and set m_bIsRunning to false.
+	if (m_pStateMachine->Empty()) 
+	{
+		TRPG_ERROR("No state in the state machine to draw.");
+
+		m_bIsRunning = false;
+
+		return;
+	}
+
+	// Clear the console.
+	m_pStateMachine->GetCurrentState()->Draw();
 
 	// Draw the console.
 	m_pConsole->Draw();
@@ -129,10 +174,7 @@ void Game::KeyEventProcess(KEY_EVENT_RECORD keyEvent)
 }
 
 // Constructor for the Game class. 
-// Initializes m_bIsRunning to true. This means the game is running by default. 
-// Set m_pKeyboard to nullptr. This means it doesn't point to anything initially.
-// Set m_pConsole to nullptr. This means it doesn't point to anything initially.
-Game::Game(): m_bIsRunning(true), m_pKeyboard(nullptr), m_pConsole(nullptr)
+Game::Game(): m_bIsRunning(true), m_pKeyboard(nullptr), m_pConsole(nullptr), m_pStateMachine(nullptr)
 {
 
 }
