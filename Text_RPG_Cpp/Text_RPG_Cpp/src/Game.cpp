@@ -100,7 +100,7 @@ void Game::ProcessInputs()
 		m_bIsRunning = false;
 	}
 
-	if (!m_pStateMachine->GetCurrentState())
+	if (!m_pStateMachine->Empty())
 	{
 		TRPG_ERROR("No state in the state machine to process inputs.");
 
@@ -116,11 +116,13 @@ void Game::Update()
 	/*TRPG_ERROR("Update\n");*/
 
 	// If there is no current state in the state machine, log an error and set m_bIsRunning to false.
-	if (!m_pStateMachine->GetCurrentState()) 
+	if (!m_pStateMachine->Empty()) 
 	{
 		TRPG_ERROR("No state in the state machine to update.");
 
 		m_bIsRunning = false;
+
+		return;
 	}
 
 	// Update the current state.
@@ -139,7 +141,7 @@ void Game::Draw()
 	m_pConsole->Write(10, 10, L"Hello World!!!", RED);
 
 	// If there is no current state in the state machine, log an error and set m_bIsRunning to false.
-	if (!m_pStateMachine->GetCurrentState()) 
+	if (!m_pStateMachine->Empty()) 
 	{
 		TRPG_ERROR("No state in the state machine to draw.");
 
