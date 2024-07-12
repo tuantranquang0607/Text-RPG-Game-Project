@@ -146,6 +146,7 @@
     <ClInclude Include="src\inputs\Keyboard.h" />
     <ClInclude Include="src\inputs\Keys.h" />
     <ClInclude Include="src\Logger.h" />
+    <ClInclude Include="src\Selector.h" />
     <ClInclude Include="src\states\GameState.h" />
     <ClInclude Include="src\states\IState.h" />
     <ClInclude Include="src\states\StateMachine.h" />
