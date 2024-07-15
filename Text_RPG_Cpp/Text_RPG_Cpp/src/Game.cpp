@@ -32,7 +32,7 @@ bool Game::Init()
 	m_pStateMachine = std::make_unique<StateMachine>();
 
 	// Push a new GameState onto the state machine.
-	m_pStateMachine->PushState(std::make_unique<GameState>(*m_pKeyboard, *m_pStateMachine));
+	m_pStateMachine->PushState(std::make_unique<GameState>(*m_pConsole, *m_pKeyboard, *m_pStateMachine));
 
 	// If no exceptions are thrown, return true.
 	return true;
@@ -140,7 +140,7 @@ void Game::Draw()
 	/*TRPG_LOG("Draw\n");*/
 
 	// Write "Hello World!!!" in red at position (10, 10) on the console.
-	m_pConsole->Write(10, 10, L"Hello World!!!", RED);
+	// m_pConsole->Write(10, 10, L"Hello World!!!", RED);
 
 	// If there is no current state in the state machine, log an error and set m_bIsRunning to false.
 	if (m_pStateMachine->Empty()) 

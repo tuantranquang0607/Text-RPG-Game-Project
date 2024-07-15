@@ -1,7 +1,9 @@
 #pragma once
 
 #include "IState.h"
+#include "../Selector.h"
 
+class Console;
 class Keyboard;
 class StateMachine;
 
@@ -10,12 +12,15 @@ class GameState : public IState
 {
 private:
 	// References to a Keyboard object and a StateMachine object.
+	Console & m_Console;
 	Keyboard & m_Keyboard;
 	StateMachine & m_StateMachine;
 
+	Selector <> m_Selector;
+
 public:
 	// Constructor for the GameState class. It takes references to a Keyboard object and a StateMachine object.
-	GameState(Keyboard & keyboard, StateMachine & stateMachine);
+	GameState(Console & Console, Keyboard & keyboard, StateMachine & stateMachine);
 	// Destructor for the GameState class.
 	~GameState();
 
