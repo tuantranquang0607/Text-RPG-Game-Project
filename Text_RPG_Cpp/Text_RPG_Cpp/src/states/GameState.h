@@ -1,7 +1,10 @@
 #pragma once
 
+#include <memory>
+
 #include "IState.h"
 #include "../Selector.h"
+#include "../Player.h"
 
 class Console;
 class Keyboard;
@@ -23,6 +26,8 @@ private:
 	// An instance of the Selector class. The template parameters are not specified here, 
 	// which might be a typo or the class could be using default template parameters.
 	Selector <> m_Selector;
+
+	std::unique_ptr<Player> m_TestPlayer;
 
 public:
 	// This is the constructor for the GameState class. It initializes the class with a Console, Keyboard, and StateMachine.
