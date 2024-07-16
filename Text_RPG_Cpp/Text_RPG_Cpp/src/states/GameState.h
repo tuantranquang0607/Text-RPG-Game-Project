@@ -1,7 +1,9 @@
 #pragma once
 
 #include "IState.h"
+#include "../Selector.h"
 
+class Console;
 class Keyboard;
 class StateMachine;
 
@@ -9,14 +11,24 @@ class StateMachine;
 class GameState : public IState
 {
 private:
-	// References to a Keyboard object and a StateMachine object.
+	// Reference to a Console object.
+	Console & m_Console;
+
+	// Reference to a Keyboard object.
 	Keyboard & m_Keyboard;
+
+	// Reference to a StateMachine object.
 	StateMachine & m_StateMachine;
 
+	// An instance of the Selector class. The template parameters are not specified here, 
+	// which might be a typo or the class could be using default template parameters.
+	Selector <> m_Selector;
+
 public:
-	// Constructor for the GameState class. It takes references to a Keyboard object and a StateMachine object.
-	GameState(Keyboard & keyboard, StateMachine & stateMachine);
-	// Destructor for the GameState class.
+	// This is the constructor for the GameState class. It initializes the class with a Console, Keyboard, and StateMachine.
+	GameState(Console & Console, Keyboard & keyboard, StateMachine & stateMachine);
+
+	// This is the destructor for the GameState class. It's called when an object of the class is destroyed.
 	~GameState();
 
 	// Method to be called when entering the GameState. Overrides the corresponding method in the IState interface.

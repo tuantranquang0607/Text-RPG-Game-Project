@@ -1,10 +1,15 @@
 #include "GameState.h"
 #include "StateMachine.h"
 #include "../Logger.h"
+#include "../Console.h"
 #include "../inputs/Keyboard.h"
 
 // Constructor for the GameState class. Initialize m_Keyboard with the keyboard and m_StateMachine with the stateMachine passed as argument.
-GameState::GameState(Keyboard & keyboard, StateMachine& stateMachine) : m_Keyboard(keyboard), m_StateMachine(stateMachine)
+GameState::GameState(Console & console, Keyboard & keyboard, StateMachine& stateMachine) : 
+	m_Console(console),
+	m_Keyboard(keyboard), 
+	m_StateMachine(stateMachine), 
+	m_Selector(console, keyboard, {L"Start", L"Settings", L"Exit"})
 {
 }
 
@@ -15,26 +20,32 @@ GameState::~GameState()
 // Destructor for the GameState class.
 void GameState::OnEnter()
 {
-	TRPG_LOG("Entered Game State");
+	// TRPG_LOG("Entered Game State");
+
+	m_Console.ClearBuffer();
 }
 
 // Method called when entering the GameState.
 void GameState::OnExit()
 {
 	// Log a message indicating that the game state has been exited.
-	TRPG_LOG("Exit Game State");
+	// TRPG_LOG("Exit Game State");
+
+	m_Console.ClearBuffer();
 }
 
 // Method to update the GameState.
 void GameState::Update()
 {
 	// Log a message indicating that the game state has been updated.
-	TRPG_LOG("Updated Game State");
+	// TRPG_LOG("Updated Game State");
 }
 
 // Method to draw the GameState.
 void GameState::Draw()
 {
+	m_Selector.Draw();
+	m_Console.Draw();
 }
 
 // Method to process inputs in the GameState.
@@ -45,6 +56,8 @@ void GameState::ProcessInputs()
 	{
 		m_StateMachine.PopState();
 	}
+
+	m_Selector.ProcessInputs();
 }
 
 // Method to check if the GameState should be exited. Currently always returns false. 
