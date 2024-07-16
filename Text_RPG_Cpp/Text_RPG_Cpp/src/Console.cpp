@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <vector>
+#include <cassert>
 
 // Function to set the text color in the console.
 bool Console::SetTextColor(int size, int x, int y, HANDLE handle, WORD color)
@@ -129,27 +130,38 @@ void Console::Write(int x, int y, const std::wstring& text, WORD color)
 
 	// This is a lambda function that checks if a character is equal to the first character of the text.
 	// If the text is empty or has more than one character, it returns false.
-	auto is_any_of = [&](wchar_t character) {
-		if (text.size() > 1)
+	auto is_any_of = [&](wchar_t character)
 		{
-			return false;
-		}
+			if (text.size() > 1) {
+				return false;
+			}
 
-		if (text.empty())
-		{ 
-			return true;
-		}
+			if (text.empty()) {
+				return true;
+			}
 
-		return character == text[0];
-	};
+			return character == text[0];
+		};
 
 	// This checks if none of the invalid characters are equal to the first character of the text.
 	// If none of them are equal, it sets the text color.
-	if (std::find_if(invalidCharacters.begin(), invalidCharacters.end(), is_any_of) == std::end(invalidCharacters))
+	if (std::find_if(invalidCharacters.begin(), invalidCharacters.end(), is_any_of) == std::end(invalidCharacters)) 
+	{
 		SetTextColor(text.size(), x, y, m_hConsole, color);
+	}
 
 	// Calculate the position in the buffer.
 	int pos = y * SCREEN_WIDTH + x;
+
+	// Check to see if the position goes beyond the BUFFER_SIZE
+	assert(pos + text.size() < BUFFER_SIZE);
+
+	// I do not wat to write to a position that is beyond the buffer size
+	if (pos + text.size() >= BUFFER_SIZE) 
+	{
+		TRPG_ERROR("Trying to write to a position that is beyond the BUFFER SIZE!");
+		return;
+	}
 
 	// Write the text to the buffer.
 	swprintf(&m_pScreen[pos], BUFFER_SIZE, text.c_str());
