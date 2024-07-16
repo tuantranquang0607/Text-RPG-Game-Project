@@ -274,7 +274,8 @@ inline void Selector<T>::Draw()
 	{
 		return;
 	}
-
+	
+	// Initialize variables for item index, position (x, y), row height, spacing, and maximum data size.
 	int itemIndex = 0;
 	int x = m_Params.x;
 	int y = m_Params.y;
@@ -282,12 +283,16 @@ inline void Selector<T>::Draw()
 	int spacingX = m_Params.spacingX;
 	int maxData = m_Data.size();
 
+	// Loop through each row.
 	for (int i = 0; i < m_Rows; i++)
 	{
+		// Loop through each column.
 		for (int j = 0; j < m_Params.columns; j++) 
 		{
+			// If the current position matches the cursor position.
 			if (i == m_Params.currentY && j == m_Params.currentX) 
 			{
+				// If the cursor is visible.
 				if (m_bShowCursor)
 				{
 					// Reset the areas behind the cursor as it moves.
@@ -310,6 +315,7 @@ inline void Selector<T>::Draw()
 				}
 			}
 
+			// If there are still items to draw.
 			if (itemIndex < maxData) 
 			{
 				// Draw the item.
@@ -317,11 +323,13 @@ inline void Selector<T>::Draw()
 
 				m_OnDrawItems(x, y, item);
 
+				// Move to the next position.
 				x += spacingX;
 				itemIndex++;
 			}
 		}
 
+		// Move to the next row and reset the x position.
 		y += rowHeight;
 		x = m_Params.x;
 	}

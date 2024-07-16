@@ -27,6 +27,8 @@ private:
 	// which might be a typo or the class could be using default template parameters.
 	Selector <> m_Selector;
 
+	// m_TestPlayer is a unique_ptr that manages a Player object. 
+	// It automatically deletes the Player object when m_TestPlayer is destroyed.
 	std::unique_ptr<Player> m_TestPlayer;
 
 public:
