@@ -1,6 +1,7 @@
 #include "Console.h"
 #include "Logger.h"
 
+#include <algorithm>
 #include <vector>
 
 // Function to set the text color in the console.
@@ -97,8 +98,6 @@ Console::Console() : m_pScreen(nullptr)
 		// If hiding the cursor fails, throw an exception.
 		throw ("Failed to hide the console cursor.");
 	}
-
-
 }
 
 // Destructor for the Console class.
@@ -123,7 +122,31 @@ void Console::ClearBuffer()
 void Console::Write(int x, int y, const std::wstring& text, WORD color)
 {
 	// Set the text color.
-	SetTextColor(text.size(), x, y, m_hConsole, color);
+	/*SetTextColor(text.size(), x, y, m_hConsole, color);*/
+
+	// This is a vector of invalid characters that we don't want to process.
+	std::vector<wchar_t> invalidCharacters{ L' ', L'\n', L'\t', L'\r' };
+
+	// This is a lambda function that checks if a character is equal to the first character of the text.
+	// If the text is empty or has more than one character, it returns false.
+	auto is_any_of = [&](wchar_t character) {
+		if (text.size() > 1)
+		{
+			return false;
+		}
+
+		if (text.empty())
+		{ 
+			return true;
+		}
+
+		return character == text[0];
+	};
+
+	// This checks if none of the invalid characters are equal to the first character of the text.
+	// If none of them are equal, it sets the text color.
+	if (std::find_if(invalidCharacters.begin(), invalidCharacters.end(), is_any_of) == std::end(invalidCharacters))
+		SetTextColor(text.size(), x, y, m_hConsole, color);
 
 	// Calculate the position in the buffer.
 	int pos = y * SCREEN_WIDTH + x;

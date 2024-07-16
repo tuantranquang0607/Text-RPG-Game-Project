@@ -50,6 +50,29 @@ private:
 
 	int m_Rows;
 
+	// This function is used to move the cursor or selection up.
+	void MoveUp();
+
+	// This function is used to move the cursor or selection down.
+	void MoveDown();
+
+	// This function is used to move the cursor or selection to the left.
+	void MoveLeft();
+
+	// This function is used to move the cursor or selection to the right.
+	void MoveRight();
+
+	// This function is triggered when an action is performed, such as pressing a button.
+	void OnAction();
+
+	// This function is used to draw an item at a specific position (x, y).
+	// The item to be drawn is of type T.
+	void DrawItem(int x, int y, T item);
+
+	// This function is triggered when a selection is made from a list of data.
+	// The selected item's index and the data list are passed as arguments.
+	void OnSelection(int index, std::vector<T> data);
+
 public:
 	// Constructors and destructor for the Selector class.
 	Selector(Console & console, Keyboard & keyboard, std::vector<T> data, SelectorParams params = SelectorParams());
@@ -68,10 +91,10 @@ public:
 	};
 
 	// Method to get the data for the selector.
-	const std::vector<T>& GetData() 
+	/*const std::vector<T>& GetData() 
 	{ 
 		return m_Data; 
-	};
+	};*/
 
 	// Method to set the selection function for the selector.
 	void SelectionFunc(std::function<void(int, std::vector<T>)> on_selection) 
@@ -105,29 +128,6 @@ public:
 
 	// This function is responsible for processing user inputs.
 	void ProcessInputs();
-
-	// This function is used to move the cursor or selection up.
-	void MoveUp();
-
-	// This function is used to move the cursor or selection down.
-	void MoveDown();
-
-	// This function is used to move the cursor or selection to the left.
-	void MoveLeft();
-
-	// This function is used to move the cursor or selection to the right.
-	void MoveRight();
-
-	// This function is triggered when an action is performed, such as pressing a button.
-	void OnAction();
-
-	// This function is used to draw an item at a specific position (x, y).
-	// The item to be drawn is of type T.
-	void DrawItem(int x, int y, T item);
-
-	// This function is triggered when a selection is made from a list of data.
-	// The selected item's index and the data list are passed as arguments.
-	void OnSelection(int index, std::vector<T> data);
 
 	// This function is used to draw or render the entire screen or a specific component.
 	void Draw();
@@ -274,7 +274,8 @@ inline void Selector<T>::Draw()
 	{
 		return;
 	}
-
+	
+	// Initialize variables for item index, position (x, y), row height, spacing, and maximum data size.
 	int itemIndex = 0;
 	int x = m_Params.x;
 	int y = m_Params.y;
@@ -282,12 +283,16 @@ inline void Selector<T>::Draw()
 	int spacingX = m_Params.spacingX;
 	int maxData = m_Data.size();
 
+	// Loop through each row.
 	for (int i = 0; i < m_Rows; i++)
 	{
+		// Loop through each column.
 		for (int j = 0; j < m_Params.columns; j++) 
 		{
+			// If the current position matches the cursor position.
 			if (i == m_Params.currentY && j == m_Params.currentX) 
 			{
+				// If the cursor is visible.
 				if (m_bShowCursor)
 				{
 					// Reset the areas behind the cursor as it moves.
@@ -310,6 +315,7 @@ inline void Selector<T>::Draw()
 				}
 			}
 
+			// If there are still items to draw.
 			if (itemIndex < maxData) 
 			{
 				// Draw the item.
@@ -317,11 +323,13 @@ inline void Selector<T>::Draw()
 
 				m_OnDrawItems(x, y, item);
 
+				// Move to the next position.
 				x += spacingX;
 				itemIndex++;
 			}
 		}
 
+		// Move to the next row and reset the x position.
 		y += rowHeight;
 		x = m_Params.x;
 	}
