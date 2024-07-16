@@ -55,6 +55,8 @@ void GameState::ProcessInputs()
 	if (m_Keyboard.IsKeyJustPressed(KEY_ESCAPE))
 	{
 		m_StateMachine.PopState();
+
+		return;
 	}
 
 	m_Selector.ProcessInputs();
