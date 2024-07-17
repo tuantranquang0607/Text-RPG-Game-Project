@@ -116,7 +116,7 @@ void Console::ClearBuffer()
 	}
 
 	// Reset all the buffer to white
-	// SetTextColor(BUFFER_SIZE, 0, 0, m_hConsole, WHITE);
+	/*SetTextColor(BUFFER_SIZE, 0, 0, m_hConsole, WHITE);*/
 }
 
 // Function to write text to the console.
