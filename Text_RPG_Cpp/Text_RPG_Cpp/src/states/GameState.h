@@ -15,13 +15,13 @@ class GameState : public IState
 {
 private:
 	// Reference to a Console object.
-	Console & m_Console;
+	Console& m_Console;
 
 	// Reference to a Keyboard object.
-	Keyboard & m_Keyboard;
+	Keyboard& m_Keyboard;
 
 	// Reference to a StateMachine object.
-	StateMachine & m_StateMachine;
+	StateMachine& m_StateMachine;
 
 	// An instance of the Selector class. The template parameters are not specified here, 
 	// which might be a typo or the class could be using default template parameters.
@@ -33,7 +33,7 @@ private:
 
 public:
 	// This is the constructor for the GameState class. It initializes the class with a Console, Keyboard, and StateMachine.
-	GameState(Console & Console, Keyboard & keyboard, StateMachine & stateMachine);
+	GameState(Console& Console, Keyboard& keyboard, StateMachine& stateMachine);
 
 	// This is the destructor for the GameState class. It's called when an object of the class is destroyed.
 	~GameState();

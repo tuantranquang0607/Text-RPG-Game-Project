@@ -35,7 +35,7 @@ public:
 	Actor();
 
 	// This is a constructor for the Actor class that initializes the class with a name, level, maximum health points, and type.
-	Actor( const std::wstring & name, int level, int max_hp, ActorType type = ActorType::WARRIOR );
+	Actor( const std::wstring& name, int level, int max_hp, ActorType type = ActorType::WARRIOR );
 
 	// This is the destructor for the Actor class.
 	~Actor() = default;
@@ -61,7 +61,7 @@ public:
 		return m_bDead; 
 	}
 
-	inline const std::wstring & GetName() const 
+	inline const std::wstring& GetName() const 
 	{ 
 		return m_sName; 
 	}

@@ -33,5 +33,5 @@ public:
 	}
 
 	// A method to get the current state (the state on top of the stack).
-	StatePtr & GetCurrentState();
+	StatePtr& GetCurrentState();
 };

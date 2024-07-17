@@ -175,9 +175,9 @@ public:
 	// Pure virtual methods to be implemented by derived classes
 	virtual const int GetValue() const = 0;
 
-	virtual bool OnEquip(Player & player) = 0;
+	virtual bool OnEquip(Player& player) = 0;
 
-	virtual bool OnRemove(Player & player) = 0;
+	virtual bool OnRemove(Player& player) = 0;
 
 	// Methods to equip and remove the equipment
 	inline void Remove()
@@ -202,12 +202,12 @@ public:
 		return m_bEquipped;
 	}
 
-	inline const std::wstring & GetName() const
+	inline const std::wstring& GetName() const
 	{
 		return m_sName;
 	}
 
-	inline const std::wstring & GetDescription() const
+	inline const std::wstring& GetDescription() const
 	{
 		return m_sDescription;
 	}
@@ -227,18 +227,56 @@ public:
 		return m_eEquipType;
 	}
 
-	inline const WeaponProperties & GetWeaponProperties() const
+	inline const WeaponProperties& GetWeaponProperties() const
 	{
 		return m_WeaponProperties;
 	}
 
-	inline const ArmorProperties & GetArmorProperties() const
+	inline const ArmorProperties& GetArmorProperties() const
 	{
 		return m_ArmorProperties;
 	}
 
-	inline const StatModifier & GetStatModifier() const
+	inline const StatModifier& GetStatModifier() const
 	{
 		return m_StatModifier;
 	}
+};
+
+class Weapon : public Equipment
+{
+public:
+	Weapon();
+
+	Weapon(const std::wstring& name, const std::wstring& description, int buy_price, int sell_price, WeaponProperties weapon_properties = WeaponProperties(), StatModifier stat_modifier = StatModifier());
+
+	~Weapon() = default;
+
+	inline const int GetValue() const override
+	{
+		return m_WeaponProperties.attackPwr;
+	}
+
+	bool OnEquip(Player& player) override;
+
+	bool OnRemove(Player& player) override;
+};
+
+class Armor : public Equipment
+{
+public:
+	Armor();
+
+	Armor(const std::wstring& name, const std::wstring& description, int buy_price, int sell_price, ArmorProperties armor_properties = ArmorProperties(), StatModifier stat_modifier = StatModifier());
+
+	~Armor() = default;
+
+	inline const int GetValue() const override
+	{
+		return m_ArmorProperties.defensePwr;
+	}
+
+	bool OnEquip(Player& player) override;
+
+	bool OnRemove(Player& player) override;
 };

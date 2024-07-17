@@ -15,7 +15,7 @@ private:
 
 public:
 	// The constructor for the Logger class.
-	Logger();
+	Logger() {};
 	// The destructor for the Logger class. Defined as default.
 	~Logger() = default;
 
