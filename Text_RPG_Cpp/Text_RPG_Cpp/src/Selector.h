@@ -37,8 +37,8 @@ template <typename T = std::wstring> class Selector
 {
 private:
 	// Member variables for the Selector class.
-	Console & m_Console;
-	Keyboard & m_Keyboard;
+	Console& m_Console;
+	Keyboard& m_Keyboard;
 
 	std::function<void(int, std::vector<T>)> m_OnSelection;
 	std::function<void(int, int, T)> m_OnDrawItems;
@@ -75,9 +75,9 @@ private:
 
 public:
 	// Constructors and destructor for the Selector class.
-	Selector(Console & console, Keyboard & keyboard, std::vector<T> data, SelectorParams params = SelectorParams());
-	Selector(Console & console, 
-			 Keyboard & keyboard, 
+	Selector(Console& console, Keyboard& keyboard, std::vector<T> data, SelectorParams params = SelectorParams());
+	Selector(Console& console, 
+			 Keyboard& keyboard, 
 			 std::function<void(int, std::vector<T>)> on_selection, 
 			 std::function<void(int, int, T)> on_draw_item, 
 			 std::vector<T> data, 
@@ -136,7 +136,7 @@ public:
 // This is a constructor for the Selector class. It initializes the class with a console, keyboard, data, and parameters.
 // It also sets the OnSelection and DrawItem functions to the class's own methods.
 template<typename T>
-inline Selector<T>::Selector(Console & console, Keyboard & keyboard, std::vector<T> data, SelectorParams params)
+inline Selector<T>::Selector(Console& console, Keyboard& keyboard, std::vector<T> data, SelectorParams params)
 	: Selector(console, 
 			   keyboard, 
 			   [this](int index, std::vector<T> data) { Selector::OnSelection(index, data); },
@@ -150,13 +150,13 @@ inline Selector<T>::Selector(Console & console, Keyboard & keyboard, std::vector
 // This is another constructor for the Selector class. It initializes the class with a console, keyboard, data, and parameters.
 // It also sets the OnSelection and DrawItem functions to the provided functions.
 template<typename T>
-inline Selector<T>::Selector(Console & console,
-							 Keyboard & keyboard, 
+inline Selector<T>::Selector(Console& console,
+							 Keyboard& keyboard, 
 							 std::function<void(int, std::vector<T>)> on_selection, 
 							 std::function<void(int, int, T)> on_draw_item, 
 							 std::vector<T> data, 
 							 SelectorParams params )
-	: m_Console(Console), 
+	: m_Console(console), 
 	m_Keyboard(keyboard), 
 	m_OnSelection(on_selection), 
 	m_OnDrawItems(on_draw_item), 
@@ -296,14 +296,22 @@ inline void Selector<T>::Draw()
 				if (m_bShowCursor)
 				{
 					// Reset the areas behind the cursor as it moves.
-					if (i != 0) 
+					if (m_Params.currentY != 0)
 					{
-						m_Console.Write(x - (x == 0 ? 0 : 2), y - rowHeight, L"  ");
+						m_Console.Write(x - (x == 0 ? 0 : 2), y - rowHeight, L" ");
 					}
-
-					m_Console.Write(x - (x == 0 ? 0 : 2), y + rowHeight, L"  ");
-					m_Console.Write(x - (x == 0 ? 0 : 2) - spacingX, L"  ");
-					m_Console.Write(x - (x == 0 ? 0 : 2) + spacingX, L"  ");
+					if (m_Params.currentX != 0)
+					{
+						m_Console.Write(x - (x == 0 ? 0 : 2) - spacingX, y, L" ");
+					}
+					if (m_Params.currentY != m_Rows - 1)
+					{
+						m_Console.Write(x - (x == 0 ? 0 : 2), y + rowHeight, L" ");
+					}
+					if (m_Params.currentX != m_Params.columns - 1)
+					{
+						m_Console.Write(x - (x == 0 ? 0 : 2) + spacingX, y, L" ");
+					}
 
 					// Draw the cursor.
 					m_Console.Write(x - (x == 0 ? 0 : 2), y, m_Params.cursor, RED);

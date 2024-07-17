@@ -44,7 +44,7 @@ public:
 	virtual ~Item() {}
 
 	// OnUse is a pure virtual function that defines what happens when the Item is used. It must be overridden in any derived class.
-	virtual void OnUse(Player & player) = 0;
+	virtual void OnUse(Player& player) = 0;
 
 	// GtCount returns the count of the Item.
 	const int GtCount() const
