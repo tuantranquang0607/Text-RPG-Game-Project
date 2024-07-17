@@ -140,6 +140,7 @@
     <ClCompile Include="src\Logger.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\Stat.cpp" />
     <ClCompile Include="src\states\GameState.cpp" />
     <ClCompile Include="src\states\StateMachine.cpp" />
   </ItemGroup>
@@ -156,6 +157,7 @@
     <ClInclude Include="src\Logger.h" />
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\Selector.h" />
+    <ClInclude Include="src\Stat.h" />
     <ClInclude Include="src\states\GameState.h" />
     <ClInclude Include="src\states\IState.h" />
     <ClInclude Include="src\states\StateMachine.h" />
