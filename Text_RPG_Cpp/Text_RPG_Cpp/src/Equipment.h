@@ -243,39 +243,49 @@ public:
 	}
 };
 
+// Class to represent a weapon that a player can use
 class Weapon : public Equipment
 {
 public:
+	// Default constructor and constructor with parameters
 	Weapon();
 
 	Weapon(const std::wstring& name, const std::wstring& description, int buy_price, int sell_price, WeaponProperties weapon_properties = WeaponProperties(), StatModifier stat_modifier = StatModifier());
 
+	// Default destructor
 	~Weapon() = default;
 
+	// Method to get the value of the weapon, which is its attack power
 	inline const int GetValue() const override
 	{
 		return m_WeaponProperties.attackPwr;
 	}
 
+	// Methods to equip and remove the weapon, to be implemented in the .cpp file
 	bool OnEquip(Player& player) override;
 
 	bool OnRemove(Player& player) override;
 };
 
+// Class to represent an armor that a player can use
 class Armor : public Equipment
 {
 public:
+	// Default constructor and constructor with parameters
 	Armor();
 
 	Armor(const std::wstring& name, const std::wstring& description, int buy_price, int sell_price, ArmorProperties armor_properties = ArmorProperties(), StatModifier stat_modifier = StatModifier());
 
+	// Default destructor
 	~Armor() = default;
 
+	// Method to get the value of the armor, which is its defense power
 	inline const int GetValue() const override
 	{
 		return m_ArmorProperties.defensePwr;
 	}
 
+	// Methods to equip and remove the armor, to be implemented in the .cpp file
 	bool OnEquip(Player& player) override;
 
 	bool OnRemove(Player& player) override;
