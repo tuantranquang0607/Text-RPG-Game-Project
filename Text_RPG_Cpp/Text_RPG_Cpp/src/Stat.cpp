@@ -3,10 +3,12 @@
 
 #include <iostream>
 
+// Default constructor for Stats class, initializes all stats to 0
 Stats::Stats() : Stats(0, 0, 0, 0, 0)
 {
 }
 
+// Constructor for Stats class, initializes stats with given values
 Stats::Stats(int strength, int intelligence, int speed, int dexterity, int stamina) : m_StatList
 	{
 		{L"Attack", 0},
@@ -39,6 +41,7 @@ Stats::Stats(int strength, int intelligence, int speed, int dexterity, int stami
 	UpdateStats();
 }
 
+// Method to get a stat value by key
 const int Stats::GetStat(const std::wstring& key)
 {
 	if (m_StatList.find(key) == m_StatList.end()) 
@@ -55,6 +58,7 @@ const int Stats::GetStat(const std::wstring& key)
 	/*return 0;*/
 }
 
+// Method to get a stat modifier value by key
 const int Stats::GetModifier(const std::wstring& key)
 {
 	if (m_StatModifierList.find(key) == m_StatModifierList.end()) 
@@ -71,6 +75,7 @@ const int Stats::GetModifier(const std::wstring& key)
 	/*return 0;*/
 }
 
+// Method to get an equipment value by slot
 const int Stats::GetEquipmentValue(EquipSlots slot)
 {
 	if (m_EquipSlotList.find(slot) == m_EquipSlotList.end()) 
@@ -87,6 +92,7 @@ const int Stats::GetEquipmentValue(EquipSlots slot)
 	/*return 0;*/
 }
 
+// Method to set a stat modifier value by key
 void Stats::SetModifier(const std::wstring& key, int value)
 {
 	if (m_StatModifierList.find(key) == m_StatModifierList.end()) 
@@ -101,6 +107,7 @@ void Stats::SetModifier(const std::wstring& key, int value)
 	m_StatModifierList[key] = value;
 }
 
+// Method to set an equipment value by slot
 void Stats::SetEquipmentValue(EquipSlots slot, int value)
 {
 	if (m_EquipSlotList.find(slot) == m_EquipSlotList.end()) 
@@ -116,6 +123,7 @@ void Stats::SetEquipmentValue(EquipSlots slot, int value)
 	m_EquipSlotList[slot] = value;
 }
 
+// Method to set a stat value by key
 void Stats::SetStat(const std::wstring& key, int value)
 {
 	if (m_StatList.find(key) == m_StatList.end()) 
@@ -130,6 +138,7 @@ void Stats::SetStat(const std::wstring& key, int value)
 	m_StatList[key] = value;
 }
 
+// Method to update the Attack and Defense stats based on other stats and equipment
 void Stats::UpdateStats()
 {
 	// Update attack power stat
