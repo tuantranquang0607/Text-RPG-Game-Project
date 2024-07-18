@@ -35,13 +35,15 @@ protected:
 	// m_bDead is a boolean that represents whether the Actor is dead.
 	bool m_bDead;
 
-	// m_eActorType is an ActorType that represents the type of the Actor.
+	// m_eActorType is an ActorType that represents the type of the Actor. Variable to store the type of the actor
 	ActorType m_eActorType;
 
+	// Unordered maps to store the actor's equipment and equipment slots
 	std::unordered_map<Equipment::EquipType, std::shared_ptr<Equipment>> m_mapEquipment;
 
 	std::unordered_map<Stats::EquipSlots, std::shared_ptr<Equipment>> m_mapEquipmentSlots;
 
+	// Variable to store the actor's stats
 	Stats m_Stats;
 
 public:
@@ -54,7 +56,7 @@ public:
 	// This is the destructor for the Actor class.
 	~Actor() = default;
 
-	// These are getter methods for the Actor class. They return the health points, maximum health points, equipment slot labels, death status, name, level, experience points, and experience points to the next level of the Actor.
+	// Getter methods for the actor's health points, maximum health points, equipment slot labels, death status, name, level, experience points, and experience points to the next level
 	inline const int GetHP() const
 	{
 		return m_HP;
