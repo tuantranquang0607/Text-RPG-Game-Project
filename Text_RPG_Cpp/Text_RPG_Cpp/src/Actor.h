@@ -2,6 +2,11 @@
 
 #include <string>
 #include <vector>
+#include <unordered_map>
+#include <memory>
+
+#include "Stat.h"
+#include "Equipment.h"
 
 class Actor
 {
@@ -14,8 +19,11 @@ public:
 
 private:
 	// m_EquipmentSlotLabels is a vector of wstrings that represents the labels for the equipment slots.
-	const std::vector<std::wstring> m_EquipmentSlotLabels{ L"Weapon: ", L"Headgear :", L"Armor: ", L"Footwear: ", L"Accessory: "};
+	const std::vector<std::wstring> m_EquipmentSlotLabels{ L"Weapon", L"Headgear", L"Armor", L"Footwear", L"Accessory" };
+
 	/*std::vector<std::wstring> m_EquipmentSlotLabels;*/
+
+	const std::vector<std::wstring> m_StatLabels{ L"Attack", L"Strength", L"Intelligence", L"Speed", L"Dexterity", L"Stamina" };
 
 protected:
 	// m_sName is a wstring that represents the name of the Actor.
@@ -29,6 +37,12 @@ protected:
 
 	// m_eActorType is an ActorType that represents the type of the Actor.
 	ActorType m_eActorType;
+
+	std::unordered_map<Equipment::EquipType, std::shared_ptr<Equipment>> m_mapEquipment;
+
+	std::unordered_map<Stats::EquipSlots, std::shared_ptr<Equipment>> m_mapEquipmentSlots;
+
+	Stats m_Stats;
 
 public:
 	// This is the default constructor for the Actor class.
@@ -51,9 +65,30 @@ public:
 		return m_MaxHP; 
 	}
 
+	/*
+	 * @return This returns a const std::vector<std::wstring>& for drawing the Equipment slot labels for each actor. The slots will never need to be changed.
+	 */
 	inline const std::vector<std::wstring> GetEquipmentSlotLabels() const 
 	{ 
 		return m_EquipmentSlotLabels; 
+	}
+	inline const std::vector<std::wstring> GetStatLabels() const 
+	{ 
+		return m_StatLabels; 
+	}
+
+	std::unordered_map<Equipment::EquipType, std::shared_ptr<Equipment>>& GetEquippedItems() 
+	{ 
+		return m_mapEquipment; 
+	}
+	std::unordered_map<Stats::EquipSlots, std::shared_ptr<Equipment>>& GetEquippedItemsSlots()
+	{ 
+		return m_mapEquipmentSlots; 
+	}
+
+	Stats& GetStats() 
+	{ 
+		return m_Stats; 
 	}
 
 	inline const bool IsDead() const 
