@@ -9,8 +9,9 @@ Actor::Actor() : Actor( L"Actor_name", 1, 100, ActorType::WARRIOR )
 // This is a constructor for the Actor class that initializes the class with a name, level, maximum health points, and type.
 // The experience points are initialized to 0, the experience points to the next level are initialized to 250,
 // the health points are initialized to the maximum health points, and the death status is initialized to false.
-Actor::Actor(const std::wstring & name, int level, int max_hp, ActorType type) : 
+Actor::Actor(const std::wstring & name, const std::wstring& id, int level, int max_hp, ActorType type) :
 	m_sName{ name },
+	m_sID{ id },
 	m_Level{ level }, 
 	m_XP{ 0 }, 
 	m_XPToNextLevel{ 250 }, 

@@ -26,8 +26,8 @@ private:
 	const std::vector<std::wstring> m_StatLabels{ L"Attack", L"Strength", L"Intelligence", L"Speed", L"Dexterity", L"Stamina" };
 
 protected:
-	// m_sName is a wstring that represents the name of the Actor.
-	std::wstring m_sName;
+	// m_sName is a wstring that represents the name of the Actor and ID.
+	std::wstring m_sName, m_sID;
 
 	// m_Level, m_XP, m_XPToNextLevel, m_HP, m_MaxHP are integers that represent the level, experience points, experience points to the next level, health points, and maximum health points of the Actor, respectively.
 	int m_Level, m_XP, m_XPToNextLevel, m_HP, m_MaxHP;
@@ -51,7 +51,7 @@ public:
 	Actor();
 
 	// This is a constructor for the Actor class that initializes the class with a name, level, maximum health points, and type.
-	Actor( const std::wstring& name, int level, int max_hp, ActorType type = ActorType::WARRIOR );
+	Actor( const std::wstring& name, const std::wstring& id, int level, int max_hp, ActorType type = ActorType::WARRIOR );
 
 	// This is the destructor for the Actor class.
 	~Actor() = default;
@@ -101,6 +101,11 @@ public:
 	inline const std::wstring& GetName() const 
 	{ 
 		return m_sName; 
+	}
+
+	inline const std::wstring& GetID() const
+	{
+		return m_sID;
 	}
 
 	const int GetLevel() const 
