@@ -5,6 +5,7 @@
 #include "IState.h"
 #include "../Selector.h"
 #include "../Player.h"
+#include "../Inventory.h"
 
 class Console;
 class Keyboard;
@@ -30,6 +31,8 @@ private:
 	// m_TestPlayer is a unique_ptr that manages a Player object. 
 	// It automatically deletes the Player object when m_TestPlayer is destroyed.
 	std::unique_ptr<Player> m_TestPlayer;
+
+	Inventory m_TestInventory;
 
 public:
 	// This is the constructor for the GameState class. It initializes the class with a Console, Keyboard, and StateMachine.

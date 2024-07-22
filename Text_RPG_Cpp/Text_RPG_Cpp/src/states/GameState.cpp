@@ -12,10 +12,11 @@ GameState::GameState(Console& console, Keyboard& keyboard, StateMachine& stateMa
 	m_Console(console), // Initialize the Console reference
 	m_Keyboard(keyboard), // Initialize the Keyboard reference
 	m_StateMachine(stateMachine), // Initialize the StateMachine reference
-	m_Selector(console, keyboard, { L"Start", L"Settings", L"Exit" }) // Initialize the Selector
+	m_Selector(console, keyboard, { L"Start", L"Settings", L"Exit" }), // Initialize the Selector
+	m_TestInventory{} // Test to be removed
 {
 	// Create a new Player object and assign it to m_TestPlayer
-	m_TestPlayer = std::make_unique<Player>(L"Test Player", 1, 200);
+	m_TestPlayer = std::make_unique<Player>(L"Test Player", L"text-player", m_TestInventory, 1, 200);
 }
 
 GameState::~GameState()
