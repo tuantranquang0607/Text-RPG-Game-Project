@@ -2,7 +2,7 @@
 
 // This is the default constructor for the Actor class. It delegates to the parameterized constructor, 
 // initializing a new Actor with the name "Actor_name", level 1, maximum health points 100, and type WARRIOR.
-Actor::Actor() : Actor( L"Actor_name", 1, 100, ActorType::WARRIOR )
+Actor::Actor() : Actor( L"Actor_name", L"Actor_ID", 1, 100, ActorType::WARRIOR )
 {
 }
 

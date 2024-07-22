@@ -140,6 +140,8 @@ public:
 	};
 
 private:
+	const int MAX_COUNT = 50;
+
 	// Type of the equipment
 	Equipment::EquipType m_eEquipType{ EquipType::NO_TYPE };
 
@@ -212,9 +214,18 @@ public:
 		return m_sDescription;
 	}
 
-	inline void Add(int num)
+	inline bool Add(int num)
 	{
+		/*m_Count += num;*/
+
+		if (m_Count + num > MAX_COUNT)
+		{
+			return false;
+		}
+
 		m_Count += num;
+
+		return true;
 	}
 
 	inline const int GetCount() const

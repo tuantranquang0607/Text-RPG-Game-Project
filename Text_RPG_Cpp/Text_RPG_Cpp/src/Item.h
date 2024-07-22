@@ -21,6 +21,8 @@ public:
 	};
 
 private:
+	const int MAX_COUNT = 99;
+
 	ItemType m_eItemType; // m_eItemType is an ItemType that represents the type of the Item.
 
 protected:
@@ -47,7 +49,7 @@ public:
 	virtual void OnUse(Player& player) = 0;
 
 	// GtCount returns the count of the Item.
-	const int GtCount() const
+	const int GetCount() const
 	{
 		return m_Count;
 	}
@@ -67,9 +69,18 @@ public:
 	}
 
 	// AddItem increases the count of the Item by a specified number.
-	void AddItem(int num)
+	bool AddItem(int num)
 	{
+		/*m_Count += num;*/
+
+		if (m_Count + num > MAX_COUNT)
+		{
+			return false;
+		}
+
 		m_Count += num;
+
+		return true;
 	}
 
 	// GetItemName returns the name of the Item.
