@@ -5,6 +5,7 @@
 #include "IState.h"
 #include "../Selector.h"
 #include "../Player.h"
+#include "../Party.h"
 #include "../Inventory.h"
 
 class Console;
@@ -28,11 +29,14 @@ private:
 	// which might be a typo or the class could be using default template parameters.
 	Selector <> m_Selector;
 
+	// m_Party is a unique_ptr that manages a Party object.
+	std::unique_ptr<Party> m_Party;
+
 	// m_TestPlayer is a unique_ptr that manages a Player object. 
 	// It automatically deletes the Player object when m_TestPlayer is destroyed.
-	std::unique_ptr<Player> m_TestPlayer;
+	/*std::unique_ptr<Player> m_TestPlayer;*/
 
-	Inventory m_TestInventory;
+	/*Inventory m_TestInventory;*/
 
 public:
 	// This is the constructor for the GameState class. It initializes the class with a Console, Keyboard, and StateMachine.
