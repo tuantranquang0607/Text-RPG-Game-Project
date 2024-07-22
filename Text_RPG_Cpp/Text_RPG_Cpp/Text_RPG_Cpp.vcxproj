@@ -139,6 +139,7 @@
     <ClCompile Include="src\Inventory.cpp" />
     <ClCompile Include="src\Logger.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Party.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Stat.cpp" />
     <ClCompile Include="src\states\GameState.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="src\Inventory.h" />
     <ClInclude Include="src\Item.h" />
     <ClInclude Include="src\Logger.h" />
+    <ClInclude Include="src\Party.h" />
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\Selector.h" />
     <ClInclude Include="src\Stat.h" />
@@ -162,6 +164,7 @@
     <ClInclude Include="src\states\IState.h" />
     <ClInclude Include="src\states\StateMachine.h" />
     <ClInclude Include="src\utilities\Colors.h" />
+    <ClInclude Include="src\utilities\trpg_utilities.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -39,11 +39,11 @@ public:
 	}
 
 	// AddItem adds a new item to the inventory.
-	void AddItem(std::shared_ptr<Item> newItem);
+	bool AddItem(std::shared_ptr<Item> newItem);
 
 	// AddEquipment adds new equipment to the inventory.
-	void AddEquipment(std::shared_ptr<Equipment> newEquipment);
+	bool AddEquipment(std::shared_ptr<Equipment> newEquipment);
 
 	// UseItem uses an item from the inventory, given the player and the index of the item.
-	void UseItem(Player& player, int index);
+	bool UseItem(Player& player, int index);
 };
