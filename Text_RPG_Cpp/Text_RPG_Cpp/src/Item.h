@@ -26,7 +26,7 @@ private:
 	ItemType m_eItemType; // m_eItemType is an ItemType that represents the type of the Item.
 
 protected:
-    // m_Count is an int that represents the count of the Item.
+	// m_Count is the item count (default 1), m_BuyPrice is the item's buy price (default 0), m_SellPrice is the item's sell price (default 0), and m_ItemValue is the item's value (default 0).
 	int m_Count{ 1 }, m_BuyPrice{ 0 }, m_SellPrice{ 0 }, m_ItemValue{ 0 };
 
 	// m_sItemName is a wstring that represents the name of the Item.

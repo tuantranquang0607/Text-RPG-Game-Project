@@ -21,11 +21,13 @@ GameState::GameState(Console& console, Keyboard& keyboard, StateMachine& stateMa
 	// Create a new Party object and assign it to m_Party
 	m_Party = std::make_unique<Party>();
 
-	// Create an item to add to inventory test
+	// This line creates a health potion item with the name "Health Potion", a description "Restores a bit of health", a health value of 25, and a buy price of 50.
 	auto potion = ItemCreator::CreateItem(Item::ItemType::HEALTH, L"Health Potion", L"Restores a bit of health", 25, 50);
 
+	// This line adds the created potion to the inventory of the party.
 	m_Party->GetInventory().AddItem(std::move(potion));
 
+	// This line creates a sword equipment with a damage value of 15, a strength modifier of 3, the name "Short Sword", a description "A small sword of shabby material.", a value of 100, and a buy price of 50.
 	auto sword = ItemCreator::CreateEquipment(
 		Equipment::EquipType::WEAPON, 
 		WeaponProperties(15, WeaponProperties::WeaponType::SWORD),
@@ -33,6 +35,7 @@ GameState::GameState(Console& console, Keyboard& keyboard, StateMachine& stateMa
 		StatModifier(3, StatModifier::ModifierType::STRENGTH),
 		L"Short Sword", L"A small sword of shabby material.", 100, 50);
 
+	// This line creates a chest armor equipment with a defense value of 10, a strength modifier of 3, the name "Chest Plate", a description "A small chest plate made of iron.", a value of 100, and a buy price of 50.
 	auto chest_armor = ItemCreator::CreateEquipment(
 		Equipment::EquipType::ARMOR,
 		WeaponProperties(),
@@ -40,6 +43,7 @@ GameState::GameState(Console& console, Keyboard& keyboard, StateMachine& stateMa
 		StatModifier(3, StatModifier::ModifierType::STRENGTH),
 		L"Chest Plate", L"A small chest plate made of iron.", 100, 50);
 
+	// These lines add the created sword and chest armor to the equipment inventory of the party.
 	m_Party->GetInventory().AddEquipment(std::move(sword));
 	m_Party->GetInventory().AddEquipment(std::move(chest_armor));
 
