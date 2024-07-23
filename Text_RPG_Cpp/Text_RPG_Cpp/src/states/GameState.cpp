@@ -3,6 +3,8 @@
 #include "../Logger.h"
 #include "../Console.h"
 #include "../inputs/Keyboard.h"
+#include "../Potion.h"
+#include "../utilities/ItemCreator.h"
 
 // Constructor for the GameState class
 GameState::GameState(Console& console, Keyboard& keyboard, StateMachine& stateMachine) :
@@ -18,6 +20,28 @@ GameState::GameState(Console& console, Keyboard& keyboard, StateMachine& stateMa
 
 	// Create a new Party object and assign it to m_Party
 	m_Party = std::make_unique<Party>();
+
+	// Create an item to add to inventory test
+	auto potion = ItemCreator::CreateItem(Item::ItemType::HEALTH, L"Health Potion", L"Restores a bit of health", 25, 50);
+
+	m_Party->GetInventory().AddItem(std::move(potion));
+
+	auto sword = ItemCreator::CreateEquipment(
+		Equipment::EquipType::WEAPON, 
+		WeaponProperties(15, WeaponProperties::WeaponType::SWORD),
+		ArmorProperties(),
+		StatModifier(3, StatModifier::ModifierType::STRENGTH),
+		L"Short Sword", L"A small sword of shabby material.", 100, 50);
+
+	auto chest_armor = ItemCreator::CreateEquipment(
+		Equipment::EquipType::ARMOR,
+		WeaponProperties(),
+		ArmorProperties(10, ArmorProperties::ArmorType::CHEST_BODY),
+		StatModifier(3, StatModifier::ModifierType::STRENGTH),
+		L"Chest Plate", L"A small chest plate made of iron.", 100, 50);
+
+	m_Party->GetInventory().AddEquipment(std::move(sword));
+	m_Party->GetInventory().AddEquipment(std::move(chest_armor));
 
 	// Create a new Player object with the name "Test Player", description "text-player", the Party's inventory, level 1, and 200 health points
 	auto player = std::make_shared<Player>(L"Test Player", L"text-player", m_Party->GetInventory(), 1, 200);

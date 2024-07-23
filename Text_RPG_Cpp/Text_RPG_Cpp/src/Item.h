@@ -26,8 +26,8 @@ private:
 	ItemType m_eItemType; // m_eItemType is an ItemType that represents the type of the Item.
 
 protected:
-	// m_Count is an integer that represents the count of the Item.
-	int m_Count{ 1 };
+    // m_Count is an int that represents the count of the Item.
+	int m_Count{ 1 }, m_BuyPrice{ 0 }, m_SellPrice{ 0 }, m_ItemValue{ 0 };
 
 	// m_sItemName is a wstring that represents the name of the Item.
 	std::wstring m_sItemName{ L"Item_Name" };
@@ -46,7 +46,7 @@ public:
 	virtual ~Item() {}
 
 	// OnUse is a pure virtual function that defines what happens when the Item is used. It must be overridden in any derived class.
-	virtual void OnUse(Player& player) = 0;
+	virtual bool OnUse(Player& player) = 0;
 
 	// GtCount returns the count of the Item.
 	const int GetCount() const
