@@ -29,6 +29,11 @@ bool Console::SetTextColor(int size, int x, int y, HANDLE handle, WORD color)
 	return true;
 }
 
+void Console::DrawBorder()
+{
+	DrawPanel(1, 0, SCREEN_WIDTH - 2, SCREEN_HEIGHT - 1);
+}
+
 // Constructor for the Console class.
 Console::Console() : m_pScreen(nullptr)
 {
@@ -170,6 +175,7 @@ void Console::Write(int x, int y, const std::wstring& text, WORD color)
 // Function to draw the buffer to the console.
 void Console::Draw()
 {
+	DrawBorder();
 	// Write the buffer to the console.
 	WriteConsoleOutputCharacter(m_hConsole, m_pScreen.get(), BUFFER_SIZE, { 0, 0 }, &m_BytesWritten);
 }
@@ -192,4 +198,33 @@ bool Console::ShowConsoleCursor(bool show)
 
 	// Set the cursor information.
 	return SetConsoleCursorInfo(m_hConsole, &cursorInfo);
+}
+
+void Console::DrawPanelHorz(int x, int y, size_t length, WORD color, const std::wstring& character)
+{
+	std::wstring sPanelHorz = L"";
+
+	for (int i = 0; i < length; i++)
+	{
+		sPanelHorz += character;
+	}
+
+	Write(x, y, sPanelHorz, color);
+}
+
+void Console::DrawPanelVert(int x, int y, size_t height, WORD color, const std::wstring& character)
+{
+	for (int i = 0; i < height; i++)
+	{
+		Write(x, y + i, character, color);
+	}
+}
+
+void Console::DrawPanel(int x, int y, size_t width, size_t height, WORD color, const std::wstring& width_char, const std::wstring& height_char)
+{
+	DrawPanelHorz(x, y, width, color, width_char);
+	DrawPanelHorz(x, y + height, width, color, width_char);
+
+	DrawPanelVert(x, y + 1, height - 1, color, height_char);
+	DrawPanelVert(x + width - 1, y + 1, height - 1, color, height_char);
 }

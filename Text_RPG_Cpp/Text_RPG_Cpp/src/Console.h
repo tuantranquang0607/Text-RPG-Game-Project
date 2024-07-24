@@ -28,6 +28,8 @@ private:
 	// A private method to set the text color in the console.
 	bool SetTextColor(int size, int x, int y, HANDLE handle, WORD color);
 
+	void DrawBorder();
+
 public:
 	// The constructor for the Console class.
 	Console();
@@ -43,4 +45,8 @@ public:
 
 	// A public method to show or hide the console cursor.
 	bool ShowConsoleCursor(bool show);
+
+	void DrawPanelHorz(int x, int y, size_t length, WORD color = WHITE, const std::wstring& character = L"=");
+	void DrawPanelVert(int x, int y, size_t height, WORD color = WHITE, const std::wstring& character = L"|");
+	void DrawPanel(int x, int y, size_t width, size_t height, WORD color = WHITE, const std::wstring& width_char = L"=", const std::wstring& height_char = L"|");
 };
