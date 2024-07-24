@@ -17,8 +17,10 @@ private:
 	// Handles to the console and console window.
 	HANDLE m_hConsole;
 	HWND m_hConsoleWindow;
+
 	// A RECT structure that defines the dimensions of the console window.
 	RECT m_ConsoleWindowRect;
+
 	// The number of characters written to the console.
 	DWORD m_BytesWritten;
 
@@ -28,6 +30,7 @@ private:
 	// A private method to set the text color in the console.
 	bool SetTextColor(int size, int x, int y, HANDLE handle, WORD color);
 
+	// A private method to draw a border around the console window.
 	void DrawBorder();
 
 public:
@@ -46,7 +49,18 @@ public:
 	// A public method to show or hide the console cursor.
 	bool ShowConsoleCursor(bool show);
 
+	// This function draws a horizontal panel on the console.
+	// It takes in the starting coordinates (x, y), the length of the panel, 
+	// the color of the panel (default is WHITE), and the character to draw the panel with (default is "=").
 	void DrawPanelHorz(int x, int y, size_t length, WORD color = WHITE, const std::wstring& character = L"=");
+
+	// This function draws a vertical panel on the console.
+	// It takes in the starting coordinates (x, y), the height of the panel, 
+	// the color of the panel (default is WHITE), and the character to draw the panel with (default is "|").
 	void DrawPanelVert(int x, int y, size_t height, WORD color = WHITE, const std::wstring& character = L"|");
+
+	// This function draws a rectangular panel on the console.
+	// It takes in the starting coordinates (x, y), the width and height of the panel, 
+	// the color of the panel (default is WHITE), the character to draw the width of the panel with (default is "="),
 	void DrawPanel(int x, int y, size_t width, size_t height, WORD color = WHITE, const std::wstring& width_char = L"=", const std::wstring& height_char = L"|");
 };

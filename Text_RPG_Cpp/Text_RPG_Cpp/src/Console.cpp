@@ -29,6 +29,7 @@ bool Console::SetTextColor(int size, int x, int y, HANDLE handle, WORD color)
 	return true;
 }
 
+// Function to draw a border around the console window.
 void Console::DrawBorder()
 {
 	DrawPanel(1, 0, SCREEN_WIDTH - 2, SCREEN_HEIGHT - 1);
@@ -200,31 +201,39 @@ bool Console::ShowConsoleCursor(bool show)
 	return SetConsoleCursorInfo(m_hConsole, &cursorInfo);
 }
 
+// This function draws a horizontal panel on the console.
 void Console::DrawPanelHorz(int x, int y, size_t length, WORD color, const std::wstring& character)
 {
 	std::wstring sPanelHorz = L"";
 
+	// Create a string of 'length' characters.
 	for (int i = 0; i < length; i++)
 	{
 		sPanelHorz += character;
 	}
 
+	// Write the string to the console at position (x, y) with the specified color.
 	Write(x, y, sPanelHorz, color);
 }
 
+// This function draws a vertical panel on the console.
 void Console::DrawPanelVert(int x, int y, size_t height, WORD color, const std::wstring& character)
 {
+	// Write the character to the console at each position from y to y+height with the specified color.
 	for (int i = 0; i < height; i++)
 	{
 		Write(x, y + i, character, color);
 	}
 }
 
+// This function draws a rectangular panel on the console.
 void Console::DrawPanel(int x, int y, size_t width, size_t height, WORD color, const std::wstring& width_char, const std::wstring& height_char)
 {
+	// Draw the top and bottom sides of the rectangle.
 	DrawPanelHorz(x, y, width, color, width_char);
 	DrawPanelHorz(x, y + height, width, color, width_char);
 
+	// Draw the left and right sides of the rectangle.
 	DrawPanelVert(x, y + 1, height - 1, color, height_char);
 	DrawPanelVert(x + width - 1, y + 1, height - 1, color, height_char);
 }
