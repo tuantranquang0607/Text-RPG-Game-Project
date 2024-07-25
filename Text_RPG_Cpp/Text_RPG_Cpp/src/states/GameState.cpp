@@ -51,8 +51,11 @@ GameState::GameState(Console& console, Keyboard& keyboard, StateMachine& stateMa
 	// Create a new Player object with the name "Test Player", description "text-player", the Party's inventory, level 1, and 200 health points
 	auto player = std::make_shared<Player>(L"Test Player", L"text-player", m_Party->GetInventory(), 1, 200);
 
+	auto Tuan = std::make_shared<Player>(L"Tuan King of Erdland", L"warrior", m_Party->GetInventory(), 1, 200);
+
 	// Add the new Player to the Party
 	m_Party->AddMember(std::move(player));
+	m_Party->AddMember(std::move(Tuan));
 }
 
 GameState::~GameState()

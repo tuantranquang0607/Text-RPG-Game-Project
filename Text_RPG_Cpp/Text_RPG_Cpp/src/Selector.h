@@ -97,7 +97,7 @@ public:
 	};*/
 
 	// Method to set the selection function for the selector.
-	void SelectionFunc(std::function<void(int, std::vector<T>)> on_selection) 
+	void SetSelectionFunc(std::function<void(int, std::vector<T>)> on_selection) 
 	{ 
 		m_OnSelection = on_selection; 
 	};

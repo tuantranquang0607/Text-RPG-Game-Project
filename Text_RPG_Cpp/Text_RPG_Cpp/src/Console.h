@@ -14,6 +14,9 @@ private:
 	const int SCREEN_HEIGHT = 48;
 	const int BUFFER_SIZE = SCREEN_WIDTH * SCREEN_HEIGHT;
 
+	const int HAL_WIDTH = SCREEN_WIDTH / 2;
+	const int HAL_HEIGHT = SCREEN_HEIGHT / 2;
+
 	// Handles to the console and console window.
 	HANDLE m_hConsole;
 	HWND m_hConsoleWindow;
@@ -38,6 +41,26 @@ public:
 	Console();
 	// The destructor for the Console class.
 	~Console();
+
+	const int GetScreenWidth() const 
+	{ 
+		return SCREEN_WIDTH; 
+	}
+
+	const int GetScreenHeight() const 
+	{ 
+		return SCREEN_HEIGHT; 
+	}
+
+	const int GetHalfWidth() const 
+	{ 
+		return HAL_WIDTH; 
+	}
+
+	const int GetHalfHeight() const 
+	{ 
+		return HAL_HEIGHT; 
+	}
 
 	// A public method to clear the screen buffer.
 	void ClearBuffer();
