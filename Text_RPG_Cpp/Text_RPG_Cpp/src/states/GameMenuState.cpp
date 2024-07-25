@@ -7,10 +7,14 @@
 
 using namespace std::placeholders;
 
+// DrawPanels() is a method that would be used to draw the panels of the game menu.
 void GameMenuState::DrawPanels()
 {
 }
 
+// DrawPlayerInfo() is a method that displays the player's information on the console. 
+// It iterates over each player in the party, checks if the player is active, and if not, 
+// it retrieves the player's attributes and displays them.
 void GameMenuState::DrawPlayerInfo()
 {
 	int i = 1;
@@ -41,11 +45,12 @@ void GameMenuState::DrawPlayerInfo()
 
 	// Draw the party Gold
 	const auto & gold = std::to_wstring(m_Party.GetGold());
-
 	std::wstring gold_str = L"GOLD: " + gold;
 	m_Console.Write(26, 36, gold_str);
 }
 
+// OnMenuSelect() is a method that handles the selection of an item from the menu. 
+// It uses a switch statement to determine what action to take based on the selected index.
 void GameMenuState::OnMenuSelect(int index, std::vector<std::wstring> data)
 {
 	switch (index) {
@@ -73,6 +78,7 @@ void GameMenuState::OnMenuSelect(int index, std::vector<std::wstring> data)
 		return;
 	}
 
+	// Hide the menu cursor and show the player cursor
 	if (m_eSelectType != SelectType::NONE) 
 	{
 		m_MenuSelector.HideCursor();
@@ -83,6 +89,8 @@ void GameMenuState::OnMenuSelect(int index, std::vector<std::wstring> data)
 	}
 }
 
+// OnPlayerSelect() is a method that handles the selection of a player. 
+// It also uses a switch statement to determine what action to take based on the selected index.
 void GameMenuState::OnPlayerSelect(int index, std::vector<std::shared_ptr<Player>> data)
 {
 	const auto& player = data[index];
@@ -109,10 +117,12 @@ void GameMenuState::OnPlayerSelect(int index, std::vector<std::shared_ptr<Player
 	}
 }
 
+// OnDrawPlayerSelect() is a method that would be used to draw the player selection on the console.
 void GameMenuState::OnDrawPlayerSelect(int x, int y, std::shared_ptr<Player> player)
 {
 }
 
+// The constructor for the GameMenuState class initializes several member variables and sets up the menu and player selectors.
 GameMenuState::GameMenuState(Party& party, Console& console, StateMachine& stateMachine, Keyboard& keyboard) :
 	m_Party(party),
 	m_Console(console),
@@ -145,15 +155,19 @@ GameMenuState::GameMenuState(Party& party, Console& console, StateMachine& state
 	m_MenuSelector.SetSelectionFunc(std::bind(&GameMenuState::OnMenuSelect, this, _1, _2));
 }
 
+// The destructor for the GameMenuState class doesn't appear to do anything in this code.
 GameMenuState::~GameMenuState()
 {
 }
 
+// OnEnter() and OnExit() are methods that are called when entering and exiting the game menu state. 
+// They clear the console buffer and hide the cursor if necessary.
 void GameMenuState::OnEnter()
 {
 	m_Console.ClearBuffer();
 }
 
+// Update() is a method that would be used to update the game state.
 void GameMenuState::OnExit()
 {
 	if (m_bInMenuSelect) 
@@ -164,10 +178,12 @@ void GameMenuState::OnExit()
 	m_Console.ClearBuffer();
 }
 
+// Draw() is a method that draws the game state on the console.
 void GameMenuState::Update()
 {
 }
 
+// Draw() is a method that draws the game state on the console.
 void GameMenuState::Draw()
 {
 	DrawPanels();
@@ -179,6 +195,8 @@ void GameMenuState::Draw()
 	m_Console.Draw();
 }
 
+// ProcessInputs() is a method that processes user inputs. 
+// It checks if the backspace key was pressed and either pops the state or hides the cursor and clears the buffer as necessary.
 void GameMenuState::ProcessInputs()
 {
 	if (m_bInMenuSelect) 
@@ -206,6 +224,7 @@ void GameMenuState::ProcessInputs()
 	}
 }
 
+// Exit() is a method that returns a boolean indicating whether the game should exit.
 bool GameMenuState::Exit()
 {
 	return m_bExitGame;
