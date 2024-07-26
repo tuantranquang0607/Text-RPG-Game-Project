@@ -7,6 +7,7 @@
 #include "../Player.h"
 #include "../Party.h"
 #include "../Inventory.h"
+#include "../utilities/Timer.h"
 
 class Console;
 class Keyboard;
@@ -31,6 +32,9 @@ private:
 
 	// m_Party is a unique_ptr that manages a Party object.
 	std::unique_ptr<Party> m_Party;
+
+	// m_Timer is an instance of the Timer class.
+	Timer m_Timer;
 
 	// m_TestPlayer is a unique_ptr that manages a Player object. 
 	// It automatically deletes the Player object when m_TestPlayer is destroyed.
