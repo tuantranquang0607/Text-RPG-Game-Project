@@ -120,7 +120,8 @@ void GameState::ProcessInputs()
 
 	// If the 'M' key was just pressed, push a new GameMenuState onto the state machine.
 	// This will pause the current game state and switch to the game menu state.
-	if (m_Keyboard.IsKeyJustPressed(KEY_M)) {
+	if (m_Keyboard.IsKeyJustPressed(KEY_M)) 
+	{
 		m_StateMachine.PushState(std::make_unique<GameMenuState>(*m_Party, m_Console, m_StateMachine, m_Keyboard));
 
 		return;
