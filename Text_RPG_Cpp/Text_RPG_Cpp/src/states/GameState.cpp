@@ -14,7 +14,8 @@ GameState::GameState(Console& console, Keyboard& keyboard, StateMachine& stateMa
 	m_StateMachine(stateMachine), // Initialize the StateMachine reference
 	m_Selector(console, keyboard, { L"Start", L"Settings", L"Exit" }), // Initialize the Selector
 	/*m_TestInventory{}*/ // Test to be removed
-	m_Party{nullptr} // Initialize the Party pointer to nullptr
+	m_Party{nullptr}, // Initialize the Party pointer to nullptr
+	m_Timer{} // Initialize the Timer
 {
 	// Create a new Player object and assign it to m_TestPlayer
 	/*m_TestPlayer = std::make_unique<Player>(L"Test Player", L"text-player", m_TestInventory, 1, 200);*/
@@ -58,6 +59,7 @@ GameState::GameState(Console& console, Keyboard& keyboard, StateMachine& stateMa
 	m_Party->AddMember(std::move(Tuan));
 }
 
+// Destructor for the GameState class.
 GameState::~GameState()
 {
 }
@@ -89,61 +91,13 @@ void GameState::Update()
 // This function is responsible for drawing the game state on the console.
 void GameState::Draw()
 {
-	// Loop over each member of the party
-	for (const auto& member : m_Party->GetParty()) 
-	{
-		// Get the name of the member
-		const auto& name = member->GetName();
+	// Draw the timer.
+	std::wstring time_ms = L"MS: " + std::to_wstring(m_Timer.ElapsedMS());
+	std::wstring time_sec = L"SEC: " + std::to_wstring(m_Timer.ElapsedSec());
 
-		// Convert the member's health points to a string
-		std::wstring hp = std::to_wstring(member->GetHP());
-
-		// Convert the member's maximum health points to a string
-		std::wstring max_hp = std::to_wstring(member->GetMaxHP());
-
-		// Write the member's name to the console at position (50, 30) in blue color
-		m_Console.Write(50, 30, name, BLUE);
-
-		// Write the member's health points and maximum health points to the console at position (50, 32) in blue color
-		m_Console.Write(50, 32, L"HP: " + hp + L"/" + max_hp, BLUE);
-
-		// Get the list of the member's stats
-		const auto& stats_list = member->GetStats().GetStatList();
-
-		// Initialize a counter for the y-coordinate of the console
-		int i = 0;
-
-		// Loop over each stat in the member's stats list
-		for (const auto& [stat, value] : stats_list)
-		{
-			// Get the modifier value of the stat
-			const auto& mod_value = member->GetStats().GetModifier(stat);
-
-			// Write the stat's name to the console at position (50, 34 + i)
-			m_Console.Write(50, 34 + i, stat + L":");
-
-			// Write the stat's value plus its modifier value to the console at position (70, 34 + i)
-			m_Console.Write(70, 34 + i, std::to_wstring(value + mod_value));
-
-			// Increment the counter
-			i++;
-		}
-	}
-
-	// Get the name of the test player.
-	/*const auto& name = m_TestPlayer->GetName();*/
-
-	// Convert the current health points of the test player to a string.
-	/*std::wstring hp = std::to_wstring(m_TestPlayer->GetHP());*/
-
-	// Convert the maximum health points of the test player to a string.
-	/*std::wstring max_hp = std::to_wstring(m_TestPlayer->GetMaxHP());*/
-
-	// Write the name of the test player on the console at position (50, 30) in blue color.
-	/*m_Console.Write(50, 30, name, BLUE);*/
-
-	// Write the current and maximum health points of the test player on the console at position (50, 32) in blue color.
-	/*m_Console.Write(50, 32, L"HP: " + hp + L"/" + max_hp, BLUE);*/
+	// Write the timer to the console at position (25, 25) and (25, 26) in red color
+	m_Console.Write(25, 25, time_ms, RED);
+	m_Console.Write(25, 26, time_sec, RED);
 
 	// Draw the selector.
 	m_Selector.Draw();
@@ -170,6 +124,25 @@ void GameState::ProcessInputs()
 		m_StateMachine.PushState(std::make_unique<GameMenuState>(*m_Party, m_Console, m_StateMachine, m_Keyboard));
 
 		return;
+	}
+
+
+	if (m_Keyboard.IsKeyJustPressed(KEY_ENTER))
+	{
+		m_Timer.Start();
+	}
+	else if (m_Keyboard.IsKeyJustPressed(KEY_T))
+	{
+		m_Timer.Stop();
+		m_Console.ClearBuffer();
+	}
+	else if (m_Keyboard.IsKeyJustPressed(KEY_P))
+	{
+		m_Timer.Pause();
+	}
+	else if (m_Keyboard.IsKeyJustPressed(KEY_R))
+	{
+		m_Timer.Resume();
 	}
 
 	// Process inputs for the selector object.
