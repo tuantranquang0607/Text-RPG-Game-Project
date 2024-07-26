@@ -126,7 +126,7 @@ void GameState::ProcessInputs()
 		return;
 	}
 
-
+	// This code is handling keyboard inputs to control a timer.
 	if (m_Keyboard.IsKeyJustPressed(KEY_ENTER))
 	{
 		m_Timer.Start();
