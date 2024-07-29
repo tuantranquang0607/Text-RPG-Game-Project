@@ -146,7 +146,9 @@
     <ClCompile Include="src\states\GameMenuState.cpp" />
     <ClCompile Include="src\states\GameState.cpp" />
     <ClCompile Include="src\states\StateMachine.cpp" />
+    <ClCompile Include="src\utilities\Globals.cpp" />
     <ClCompile Include="src\utilities\Timer.cpp" />
+    <ClCompile Include="src\utilities\trpg_utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Actor.h" />
@@ -169,6 +171,7 @@
     <ClInclude Include="src\states\IState.h" />
     <ClInclude Include="src\states\StateMachine.h" />
     <ClInclude Include="src\utilities\Colors.h" />
+    <ClInclude Include="src\utilities\Globals.h" />
     <ClInclude Include="src\utilities\ItemCreator.h" />
     <ClInclude Include="src\utilities\Timer.h" />
     <ClInclude Include="src\utilities\trpg_utilities.h" />
