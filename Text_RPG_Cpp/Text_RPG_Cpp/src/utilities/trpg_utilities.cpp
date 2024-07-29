@@ -1,10 +1,12 @@
 #include "trpg_utilities.h"
 
+// Function to convert a char array to a wide string
 std::wstring CharToWide(const char* str)
 {
     return std::wstring(str, str + strlen(str));
 }
 
+// Function to convert a wide string to a string
 std::string WideToStr(const std::wstring& wstr)
 {
 	int size_in_bytes = WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(), NULL, 0, NULL, NULL);
@@ -16,6 +18,7 @@ std::string WideToStr(const std::wstring& wstr)
 	return strTo;
 }
 
+// Function to pad numbers less than 10 with a leading zero
 std::wstring PadNumbers(int num)
 {
 	if (num < 10)

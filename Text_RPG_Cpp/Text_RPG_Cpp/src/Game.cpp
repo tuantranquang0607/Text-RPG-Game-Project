@@ -93,8 +93,6 @@ void Game::ProcessEvents()
 // Process player input. 
 void Game::ProcessInputs()
 {
-	/*TRPG_LOG("Process Inputs\n");*/
-
 	// If the escape key is pressed, set m_bIsRunning to false.
 	if (m_pKeyboard->IsKeyJustPressed(KEY_ESCAPE))
 	{
