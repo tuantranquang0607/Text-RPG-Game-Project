@@ -5,6 +5,7 @@ I made this project a practice and inception for my final video game project usi
 Source: https://youtu.be/B2RPgKxsEVs?si=HYEp-2M8BCUB6IZz <br>
 Source Code: https://github.com/dwjclark11/TextRPG
 
+C++ reference: https://en.cppreference.com/w/
 ASCII art/words: https://patorjk.com/
 
 
