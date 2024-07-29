@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Logger.h"
 #include "states/GameState.h"
+#include "utilities/Globals.h"
 
 #include <iostream>
 
@@ -92,8 +93,6 @@ void Game::ProcessEvents()
 // Process player input. 
 void Game::ProcessInputs()
 {
-	/*TRPG_LOG("Process Inputs\n");*/
-
 	// If the escape key is pressed, set m_bIsRunning to false.
 	if (m_pKeyboard->IsKeyJustPressed(KEY_ESCAPE))
 	{
@@ -115,8 +114,6 @@ void Game::ProcessInputs()
 // Update the game state. 
 void Game::Update()
 {
-	/*TRPG_ERROR("Update\n");*/
-
 	// If there is no current state in the state machine, log an error and set m_bIsRunning to false.
 	if (m_pStateMachine->Empty()) 
 	{
@@ -132,6 +129,9 @@ void Game::Update()
 
 	// Update the keyboard.
 	m_pKeyboard->Update();
+
+	// Update the global game time.
+	TRPG_Globals::GetInstance().Update();
 }
 
 // Draw the game state.
