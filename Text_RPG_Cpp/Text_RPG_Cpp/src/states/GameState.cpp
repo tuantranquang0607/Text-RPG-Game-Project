@@ -6,6 +6,9 @@
 #include "../Potion.h"
 #include "../utilities/ItemCreator.h"
 #include "GameMenuState.h"
+#include "../utilities/ItemLoader.h"
+
+#include <cassert>
 
 // Constructor for the GameState class
 GameState::GameState(Console& console, Keyboard& keyboard, StateMachine& stateMachine) :
@@ -13,13 +16,9 @@ GameState::GameState(Console& console, Keyboard& keyboard, StateMachine& stateMa
 	m_Keyboard(keyboard), // Initialize the Keyboard reference
 	m_StateMachine(stateMachine), // Initialize the StateMachine reference
 	m_Selector(console, keyboard, { L"Start", L"Settings", L"Exit" }), // Initialize the Selector
-	/*m_TestInventory{}*/ // Test to be removed
 	m_Party{nullptr}, // Initialize the Party pointer to nullptr
 	m_Timer{} // Initialize the Timer
 {
-	// Create a new Player object and assign it to m_TestPlayer
-	/*m_TestPlayer = std::make_unique<Player>(L"Test Player", L"text-player", m_TestInventory, 1, 200);*/
-
 	// Create a new Party object and assign it to m_Party
 	m_Party = std::make_unique<Party>();
 
@@ -51,7 +50,6 @@ GameState::GameState(Console& console, Keyboard& keyboard, StateMachine& stateMa
 
 	// Create a new Player object with the name "Test Player", description "text-player", the Party's inventory, level 1, and 200 health points
 	auto player = std::make_shared<Player>(L"Test Player", L"text-player", m_Party->GetInventory(), 1, 200);
-
 	auto Tuan = std::make_shared<Player>(L"Tuan King of Erdland", L"warrior", m_Party->GetInventory(), 1, 200);
 
 	// Add the new Player to the Party
@@ -67,25 +65,25 @@ GameState::~GameState()
 // Destructor for the GameState class.
 void GameState::OnEnter()
 {
-	// TRPG_LOG("Entered Game State");
+	m_Console.ClearBuffer();  // Clear the console buffer.
 
-	m_Console.ClearBuffer();
+	ItemLoader il{ "./assets/xml_files/ItemDefs.xml" };   // Load item definitions from the XML file.
+
+	auto item = il.CreateObjectFromFile( "Potion" ); // Create an item object from the file, specifically a "Potion".
+
+	assert(item); // Ensure the item was created successfully.
 }
 
 // Method called when entering the GameState.
 void GameState::OnExit()
 {
-	// Log a message indicating that the game state has been exited.
-	// TRPG_LOG("Exit Game State");
-
-	m_Console.ClearBuffer();
+	m_Console.ClearBuffer(); // Clear the console buffer.
 }
 
 // Method to update the GameState.
 void GameState::Update()
 {
-	// Log a message indicating that the game state has been updated.
-	// TRPG_LOG("Updated Game State");
+	
 }
 
 // This function is responsible for drawing the game state on the console.

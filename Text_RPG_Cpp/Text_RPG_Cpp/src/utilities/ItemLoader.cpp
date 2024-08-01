@@ -6,19 +6,23 @@
 
 #include <cassert>
 
-using namespace tinyxml2;
+using namespace tinyxml2; 
 
+// Constructor for the ItemLoader class, initializes the XML document.
 ItemLoader::ItemLoader(const std::string& filepath) : m_sFilepath(filepath)
 {
 	m_pXMLDoc = std::make_unique<tinyxml2::XMLDocument>();
 }
 
+// Destructor for the ItemLoader class.
 ItemLoader::~ItemLoader()
 {
 }
 
+// Function to create an item object from the XML file.
 std::shared_ptr<Item> ItemLoader::CreateObjectFromFile(const std::string& objName)
 {
+	// Load the XML file.
 	if (LoadFile(m_sFilepath) != XML_SUCCESS)
 	{
 		std::string error { m_pXMLDoc->ErrorName() };
@@ -64,7 +68,7 @@ std::shared_ptr<Item> ItemLoader::CreateObjectFromFile(const std::string& objNam
 		return nullptr;
 	}
 
-	std::shared_ptr<Item> newItem{ nullptr };
+	std::shared_ptr<Item> newItem{ nullptr }; // Create a new item
 
 	while (pItem)
 	{
@@ -164,5 +168,8 @@ std::shared_ptr<Item> ItemLoader::CreateObjectFromFile(const std::string& objNam
 		return newItem;
 	}
 
-	return std::shared_ptr<Item>();
+	// If we get here ObjName does not exist!
+	assert(newItem);
+
+	return nullptr;
 }

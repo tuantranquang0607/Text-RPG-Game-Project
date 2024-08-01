@@ -18,5 +18,5 @@ std::wstring CharToWide(const char* str);
 std::string WideToStr(const std::wstring& wstr);
 std::wstring PadNumbers(int num);
 
-
+// Enum to represent the different item types
 Item::ItemType ItemTypeFromString(const std::string& item_type);

@@ -29,6 +29,7 @@ std::wstring PadNumbers(int num)
 	return std::to_wstring(num);
 }
 
+// Function to convert a string to an ItemType enum.
 Item::ItemType ItemTypeFromString(const std::string& item_type)
 {
 	if (item_type == "Health")
