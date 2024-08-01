@@ -6,6 +6,7 @@
 
 #include "../Item.h"
 #include "../Equipment.h"
+#include "../Potion.h"
 
 class ItemCreator
 {

@@ -71,8 +71,6 @@ public:
 	// AddItem increases the count of the Item by a specified number.
 	bool AddItem(int num)
 	{
-		/*m_Count += num;*/
-
 		if (m_Count + num > MAX_COUNT)
 		{
 			return false;
