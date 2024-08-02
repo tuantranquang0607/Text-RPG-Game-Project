@@ -15,6 +15,7 @@ struct StatModifier
 		SPEED,
 		INTELLIGENCE,
 		DEXTERITY,
+		STAMINA,
 		ELEMENTAL,
 		NO_TYPE
 	};
