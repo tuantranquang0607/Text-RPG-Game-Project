@@ -153,6 +153,7 @@
     <ClCompile Include="src\states\GameMenuState.cpp" />
     <ClCompile Include="src\states\GameState.cpp" />
     <ClCompile Include="src\states\StateMachine.cpp" />
+    <ClCompile Include="src\utilities\EquipmentLoader.cpp" />
     <ClCompile Include="src\utilities\Globals.cpp" />
     <ClCompile Include="src\utilities\ItemLoader.cpp" />
     <ClCompile Include="src\utilities\Timer.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="src\states\IState.h" />
     <ClInclude Include="src\states\StateMachine.h" />
     <ClInclude Include="src\utilities\Colors.h" />
+    <ClInclude Include="src\utilities\EquipmentLoader.h" />
     <ClInclude Include="src\utilities\Globals.h" />
     <ClInclude Include="src\utilities\ItemCreator.h" />
     <ClInclude Include="src\utilities\ItemLoader.h" />
@@ -191,7 +193,9 @@
     <Text Include="libs\tinyxml2\LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="assets\xml_files\ArmorDefs.xml" />
     <Xml Include="assets\xml_files\ItemDefs.xml" />
+    <Xml Include="assets\xml_files\WeaponDefs.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
