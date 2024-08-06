@@ -58,6 +58,7 @@ Item::ItemType ItemTypeFromString(const std::string& item_type)
 	}
 }
 
+// Function to convert a string to a EquipType enum.
 Equipment::EquipType EquipTypeFromString(const std::string& equip_type)
 {
 	if (equip_type == "Weapon")
@@ -78,6 +79,7 @@ Equipment::EquipType EquipTypeFromString(const std::string& equip_type)
 	}
 }
 
+// Function to convert a string to a WeaponType enum.
 WeaponProperties::WeaponType WeaponTypeFromString(const std::string& weapon_type)
 {
 	if (weapon_type == "Sword")
@@ -102,6 +104,7 @@ WeaponProperties::WeaponType WeaponTypeFromString(const std::string& weapon_type
 	}
 }
 
+// Function to convert a string to a ArmorType enum.
 ArmorProperties::ArmorType ArmorTypeFromString(const std::string& armor_type)
 {
 	if (armor_type == "Headgear")
@@ -122,6 +125,7 @@ ArmorProperties::ArmorType ArmorTypeFromString(const std::string& armor_type)
 	}
 }
 
+// Function to convert a string to a ModifierType enum.
 StatModifier::ModifierType ModifierTypeFromString(const std::string& mod_type)
 {
 	if (mod_type == "Strength")
@@ -154,6 +158,7 @@ StatModifier::ModifierType ModifierTypeFromString(const std::string& mod_type)
 	}
 }
 
+// Function to convert a string to a ElementalType enum.
 StatModifier::ElementalType ElementalTypeFromString(const std::string& elemental_type)
 {
 	if (elemental_type == "Fire")
