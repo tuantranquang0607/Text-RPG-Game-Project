@@ -217,8 +217,6 @@ public:
 
 	inline bool Add(int num)
 	{
-		/*m_Count += num;*/
-
 		if (m_Count + num > MAX_COUNT)
 		{
 			return false;
@@ -262,7 +260,7 @@ public:
 	// Default constructor and constructor with parameters
 	Weapon();
 
-	Weapon(const std::wstring& name, const std::wstring& description, int buy_price, int sell_price, WeaponProperties weapon_properties = WeaponProperties(), StatModifier stat_modifier = StatModifier());
+	Weapon(const std::wstring& name, const std::wstring& description, int buy_price, WeaponProperties weapon_properties = WeaponProperties(), StatModifier stat_modifier = StatModifier());
 
 	// Default destructor
 	~Weapon() = default;
@@ -286,7 +284,7 @@ public:
 	// Default constructor and constructor with parameters
 	Armor();
 
-	Armor(const std::wstring& name, const std::wstring& description, int buy_price, int sell_price, ArmorProperties armor_properties = ArmorProperties(), StatModifier stat_modifier = StatModifier());
+	Armor(const std::wstring& name, const std::wstring& description, int buy_price, ArmorProperties armor_properties = ArmorProperties(), StatModifier stat_modifier = StatModifier());
 
 	// Default destructor
 	~Armor() = default;
