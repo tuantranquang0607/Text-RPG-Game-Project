@@ -7,6 +7,7 @@
 #include "../utilities/ItemCreator.h"
 #include "GameMenuState.h"
 #include "../utilities/ItemLoader.h"
+#include "../utilities/EquipmentLoader.h"
 
 #include <cassert>
 
@@ -34,7 +35,7 @@ GameState::GameState(Console& console, Keyboard& keyboard, StateMachine& stateMa
 		WeaponProperties(15, WeaponProperties::WeaponType::SWORD),
 		ArmorProperties(),
 		StatModifier(3, StatModifier::ModifierType::STRENGTH),
-		L"Short Sword", L"A small sword of shabby material.", 100, 50);
+		L"Short Sword", L"A small sword of shabby material.", 10);
 
 	// This line creates a chest armor equipment with a defense value of 10, a strength modifier of 3, the name "Chest Plate", a description "A small chest plate made of iron.", a value of 100, and a buy price of 50.
 	auto chest_armor = ItemCreator::CreateEquipment(
@@ -42,7 +43,7 @@ GameState::GameState(Console& console, Keyboard& keyboard, StateMachine& stateMa
 		WeaponProperties(),
 		ArmorProperties(10, ArmorProperties::ArmorType::CHEST_BODY),
 		StatModifier(3, StatModifier::ModifierType::STRENGTH),
-		L"Chest Plate", L"A small chest plate made of iron.", 100, 50);
+		L"Chest Plate", L"A small chest plate made of iron.", 100);
 
 	// These lines add the created sword and chest armor to the equipment inventory of the party.
 	m_Party->GetInventory().AddEquipment(std::move(sword));
@@ -67,11 +68,11 @@ void GameState::OnEnter()
 {
 	m_Console.ClearBuffer();  // Clear the console buffer.
 
-	ItemLoader il{ "./assets/xml_files/ItemDefs.xml" };   // Load item definitions from the XML file.
+	EquipmentLoader el{ "./assets/xml_files/WeaponDefs.xml" }; // Create an EquipmentLoader object with the specified XML file
 
-	auto item = il.CreateObjectFromFile( "Potion" ); // Create an item object from the file, specifically a "Potion".
+	auto equipment = el.CreateObjectFromFile("Broad Sword"); // Create an equipment object from the file using the name "Broad Sword"
 
-	assert(item); // Ensure the item was created successfully.
+	assert(equipment); // Ensure that the equipment object was successfully created
 }
 
 // Method called when entering the GameState.

@@ -7,12 +7,12 @@ Weapon::Weapon() : Weapon(L"Weapon_Name", L"Weapon Description", 0, 0)
 }
 
 // Constructor for Weapon class with parameters
-Weapon::Weapon(const std::wstring& name, const std::wstring& description, int buy_price, int sell_price, WeaponProperties weapon_properties, StatModifier stat_modifier)
+Weapon::Weapon(const std::wstring& name, const std::wstring& description, int buy_price, WeaponProperties weapon_properties, StatModifier stat_modifier)
 {
 	m_sName = name; // Set the name of the weapon
 	m_sDescription = description; // Set the description of the weapon
 	m_BuyPrice = buy_price; // Set the buy price of the weapon
-	m_SellPrice = sell_price; // Set the sell price of the weapon
+	m_SellPrice = buy_price / 2; // Set the sell price of the weapon
 	m_StatModifier = stat_modifier; // Set the stat modifier of the weapon
 	SetEquipType(EquipType::WEAPON); // Set the equipment type to WEAPON
 	m_WeaponProperties = weapon_properties; // Set the weapon properties
@@ -22,8 +22,6 @@ Weapon::Weapon(const std::wstring& name, const std::wstring& description, int bu
 // Method to equip the weapon
 bool Weapon::OnEquip(Player& player)
 {
-	/*return false;*/
-
 	// Get the value of the weapon
 	const auto& item_pwr = GetValue();
 
@@ -53,8 +51,6 @@ bool Weapon::OnEquip(Player& player)
 // Method to remove the weapon
 bool Weapon::OnRemove(Player& player)
 {
-	/*return false;*/
-
 	// Get the player's stats
 	auto& player_stats = player.GetStats();
 
@@ -84,7 +80,7 @@ Armor::Armor() : Armor(L"Armor_Name", L"Armor Description", 0, 0)
 }
 
 // Constructor for Armor class with parameters
-Armor::Armor(const std::wstring& name, const std::wstring& description, int buy_price, int sell_price, ArmorProperties armor_properties, StatModifier stat_modifier)
+Armor::Armor(const std::wstring& name, const std::wstring& description, int buy_price, ArmorProperties armor_properties, StatModifier stat_modifier)
 {
 	m_sName = name; // Set the name of the armor
 	m_sDescription = description; // Set the description of the armor
@@ -99,8 +95,6 @@ Armor::Armor(const std::wstring& name, const std::wstring& description, int buy_
 // Method to equip the armor
 bool Armor::OnEquip(Player& player)
 {
-	/*return false;*/
-
 	// Get the value of the armor
 	const auto& item_pwr = GetValue();
 
@@ -153,8 +147,6 @@ bool Armor::OnEquip(Player& player)
 // Method to remove the armor
 bool Armor::OnRemove(Player& player)
 {
-	/*return false;*/
-
 	// Get the player's stats
 	auto& player_stats = player.GetStats();
 
