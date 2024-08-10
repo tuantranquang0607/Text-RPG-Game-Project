@@ -1,4 +1,5 @@
 #pragma once
+
 #include "IState.h"
 #include "../Selector.h"
 #include "../Equipment.h"
@@ -14,7 +15,6 @@ class EquipmentMenuState : public IState
 private:
 	const int PANEL_BARS = 90;
 	const int EQUIP_SIZE = 52;
-	const int MENU_SIZE = 27;
 	const int STAT_PREDICT_X_POS = 75;
 	const int STAT_VAL_X_POS = 50;
 	const int STAT_LABEL_X_POS = 30;

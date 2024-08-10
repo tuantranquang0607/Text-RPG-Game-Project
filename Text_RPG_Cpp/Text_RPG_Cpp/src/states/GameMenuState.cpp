@@ -6,6 +6,7 @@
 #include "../inputs/Keyboard.h"
 #include "../Player.h"
 #include "../utilities/Globals.h"
+#include "EquipmentMenuState.h"
 
 using namespace std::placeholders;
 
@@ -132,7 +133,7 @@ void GameMenuState::OnPlayerSelect(int index, std::vector<std::shared_ptr<Player
 		// TODO: Create new MAGIC State
 		break;
 	case SelectType::EQUIPMENT:
-		
+		m_StateMachine.PushState(std::make_unique<EquipmentMenuState>(*player, m_Console, m_StateMachine, m_Keyboard));
 		break;
 	case SelectType::STATS:
 		
