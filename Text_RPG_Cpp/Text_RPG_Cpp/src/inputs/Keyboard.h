@@ -13,21 +13,21 @@ private:
 
 public:
 	// The constructor for the Keyboard class.
-	Keyboard();
+	Keyboard() = default;
 	// The destructor for the Keyboard class. Defined as default.
 	~Keyboard() = default;
 
 	// A method to update the state of the keys.
 	void Update();
 	// A method to handle a key press event.
-	void OnKeyDown(int key);
+	void OnKeyDown( int key );
 	// A method to handle a key release event.
-	void OnKeyUp(int key);
+	void OnKeyUp( int key );
 
 	// A method to check if a key is being held down.
-	bool IsKeyHeld(int key) const;
+	bool IsKeyHeld( int key ) const;
 	// A method to check if a key was just pressed.
-	bool IsKeyJustPressed(int key) const;
+	bool IsKeyJustPressed( int key ) const;
 	// A method to check if a key was just released.
-	bool IsKeyJustReleased(int key) const;
+	bool IsKeyJustReleased( int key ) const;
 };

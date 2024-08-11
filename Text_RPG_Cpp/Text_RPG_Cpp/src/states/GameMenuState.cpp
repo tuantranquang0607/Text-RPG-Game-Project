@@ -7,6 +7,7 @@
 #include "../Player.h"
 #include "../utilities/Globals.h"
 #include "EquipmentMenuState.h"
+#include "StatusMenuState.h"
 
 using namespace std::placeholders;
 
@@ -137,7 +138,7 @@ void GameMenuState::OnPlayerSelect(int index, std::vector<std::shared_ptr<Player
 		m_StateMachine.PushState(std::make_unique<EquipmentMenuState>(*player, m_Console, m_StateMachine, m_Keyboard));
 		break;
 	case SelectType::STATS:
-		
+		m_StateMachine.PushState(std::make_unique<StatusMenuState>(*player, m_Console, m_StateMachine, m_Keyboard));
 		break;
 	case SelectType::ORDER: 
 

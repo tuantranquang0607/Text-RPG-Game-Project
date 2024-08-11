@@ -17,28 +17,13 @@ public:
 
 	~Player();
 
-	Inventory& GetInventory()
-	{
-		return m_Inventory;
-	}
+	Inventory& GetInventory() { return m_Inventory; }
 
-	void SetActive(bool active)
-	{
-		m_bActive = active;
-	}
+	void SetActive(bool active) { m_bActive = active; }
 
-	const bool IsActive() const
-	{
-		return m_bActive;
-	}
+	const bool IsActive() const { return m_bActive; }
 
-	void SetPartyPosition(int pos)
-	{
-		m_PartyPosition = pos;
-	}
+	void SetPartyPosition(int pos) { m_PartyPosition = pos; }
 
-	const int GetPartyPosition() const
-	{
-		return m_PartyPosition;
-	}
+	const int GetPartyPosition() const { return m_PartyPosition; }
 };
