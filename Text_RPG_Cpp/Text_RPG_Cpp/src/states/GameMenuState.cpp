@@ -82,7 +82,8 @@ void GameMenuState::DrawPlayerInfo()
 // It uses a switch statement to determine what action to take based on the selected index.
 void GameMenuState::OnMenuSelect(int index, std::vector<std::wstring> data)
 {
-	switch (index) {
+	switch (index) 
+	{
 	case 0:
 		m_eSelectType = SelectType::ITEM;
 		break;
