@@ -15,7 +15,6 @@ class ItemState : public IState
 private:
 	const int PANEL_BARS = 90;
 	const int MENU_SIZE = 27;
-	const int CLEAR_ROW = 90;
 
 	Party& m_Party;
 	Console& m_Console;

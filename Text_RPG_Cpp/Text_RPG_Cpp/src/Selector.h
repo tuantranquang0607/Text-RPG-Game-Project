@@ -91,18 +91,24 @@ public:
 	};
 
 	// Method to get the data for the selector.
-	/*const std::vector<T>& GetData() 
-	{ 
-		return m_Data; 
-	};*/
+	std::vector<T>& GetData() { return m_Data; }
 
 	// Method to set the selection function for the selector.
+	/*
+	 * This sets the OnSelection function that MUST be overwritten for each new selector object.
+	 * What each selector does will vary; Therefore, this function should be updated for each new Selector object.
+	 * @param This takes in an std::function ~ func(int x, int y, T item).
+	 */
 	void SetSelectionFunc(std::function<void(int, std::vector<T>)> on_selection) 
 	{ 
 		m_OnSelection = on_selection; 
 	};
 
 	// Method to set the draw function for the selector.
+	/*
+	 * This sets the DrawItem function that should be overwritten for each new selector object
+	 * @param This takes in an std::function ~ func(int x, int y, T item).
+	 */
 	void SetDrawFunc(std::function<void(int, int, T)> on_draw_item) 
 	{ 
 		m_OnDrawItems = on_draw_item; 

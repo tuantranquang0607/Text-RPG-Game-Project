@@ -187,7 +187,7 @@ ItemState::ItemState(Player& player, Console& console, StateMachine& stateMachin
 	m_bInMenuSelect{ true },
 	m_ScreenWidth{ console.GetScreenWidth() },
 	m_ScreenHeight{ console.GetScreenHeight() },
-	m_CenterScreenW{ console.GetHalfWidth() }, 
+	m_CenterScreenW{ console.GetHalfWidth() } 
 {
 	m_MenuSelector.SetSelectionFunc(std::bind(&ItemState::OnMenuSelect, this, _1, _2));
 
