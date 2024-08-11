@@ -155,6 +155,7 @@
     <ClCompile Include="src\states\GameState.cpp" />
     <ClCompile Include="src\states\ItemMenuState.cpp" />
     <ClCompile Include="src\states\StateMachine.cpp" />
+    <ClCompile Include="src\states\StatusMenuState.cpp" />
     <ClCompile Include="src\utilities\EquipmentLoader.cpp" />
     <ClCompile Include="src\utilities\Globals.cpp" />
     <ClCompile Include="src\utilities\ItemLoader.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="src\states\ItemMenuState.h" />
     <ClInclude Include="src\states\IState.h" />
     <ClInclude Include="src\states\StateMachine.h" />
+    <ClInclude Include="src\states\StatusMenuState.h" />
     <ClInclude Include="src\utilities\Colors.h" />
     <ClInclude Include="src\utilities\EquipmentLoader.h" />
     <ClInclude Include="src\utilities\Globals.h" />

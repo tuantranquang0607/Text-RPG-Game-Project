@@ -18,7 +18,15 @@ Actor::Actor(const std::wstring & name, const std::wstring& id, int level, int m
 	m_HP{ max_hp }, 
 	m_MaxHP{ max_hp },
 	m_bDead { false },
-	m_eActorType{ type }
+	m_eActorType{ type },
+	m_mapEquipmentSlots{
+	   { Stats::EquipSlots::WEAPON, nullptr },
+	   { Stats::EquipSlots::HEADGEAR, nullptr },
+	   { Stats::EquipSlots::CHEST_BODY, nullptr },
+	   { Stats::EquipSlots::FOOTWEAR, nullptr },
+	   { Stats::EquipSlots::ACCESSORY, nullptr },
+	},
+	m_Stats{ 10, 3, 5, 5, 7 } // TEST STATS
 {
 }
 
@@ -45,4 +53,21 @@ void Actor::TakeDamage(int hp)
 		m_HP = 0;
 		m_bDead = true;
 	}
+}
+
+bool Actor::UseMP(int mp)
+{
+	if (mp > m_MP)
+	{
+		return false;
+	}
+
+	m_MP -= mp;
+
+	if (m_MP <= 0)
+	{
+		m_MP = 0;
+	}
+
+	return true;
 }

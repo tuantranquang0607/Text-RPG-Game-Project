@@ -17,6 +17,7 @@ private:
 public:
 	// The constructor for the StateMachine class.
 	StateMachine();
+
 	// The destructor for the StateMachine class.
 	~StateMachine();
 
@@ -27,10 +28,7 @@ public:
 	StatePtr PopState();
 
 	// A method to check if the stack is empty.
-	const bool Empty() const 
-	{ 
-		return m_States.empty(); 
-	}
+	const bool Empty() const { return m_States.empty(); }
 
 	// A method to get the current state (the state on top of the stack).
 	StatePtr& GetCurrentState();

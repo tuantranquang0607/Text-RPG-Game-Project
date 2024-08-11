@@ -13,12 +13,13 @@ private:
 	const int SCREEN_WIDTH = 120;
 	const int SCREEN_HEIGHT = 48;
 	const int BUFFER_SIZE = SCREEN_WIDTH * SCREEN_HEIGHT;
+	const int HALF_WIDTH = SCREEN_WIDTH / 2;
+	const int HALF_HEIGHT = SCREEN_HEIGHT / 2;
 
-	const int HAL_WIDTH = SCREEN_WIDTH / 2;
-	const int HAL_HEIGHT = SCREEN_HEIGHT / 2;
-
-	// Handles to the console and console window.
+	// Handles to the console.
 	HANDLE m_hConsole;
+
+	// A handle to the console output buffer.
 	HWND m_hConsoleWindow;
 
 	// A RECT structure that defines the dimensions of the console window.
@@ -42,30 +43,20 @@ public:
 	// The destructor for the Console class.
 	~Console();
 
-	const int GetScreenWidth() const 
-	{ 
-		return SCREEN_WIDTH; 
-	}
+	const int GetScreenWidth() const { return SCREEN_WIDTH; }
 
-	const int GetScreenHeight() const 
-	{ 
-		return SCREEN_HEIGHT; 
-	}
+	const int GetScreenHeight() const { return SCREEN_HEIGHT; }
 
-	const int GetHalfWidth() const 
-	{ 
-		return HAL_WIDTH; 
-	}
+	const int GetHalfWidth() const { return HALF_WIDTH; }
 
-	const int GetHalfHeight() const 
-	{ 
-		return HAL_HEIGHT; 
-	}
+	const int GetHalfHeight() const { return HALF_HEIGHT; }
 
 	// A public method to clear the screen buffer.
 	void ClearBuffer();
+
 	// A public method to write text to the console.
 	void Write(int x, int y, const std::wstring& text, WORD color = WHITE);
+
 	// A public method to draw the buffer to the console.
 	void Draw();
 
