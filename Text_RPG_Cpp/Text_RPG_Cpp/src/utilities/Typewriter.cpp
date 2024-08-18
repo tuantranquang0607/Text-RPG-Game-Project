@@ -6,15 +6,41 @@
 
 bool Typewriter::SetBorderProperties()
 {
-    return false;
+	m_BorderX = std::clamp( m_X - 2, 0, 127 );
+	m_BorderY = std::clamp( m_Y - 2, 0, 47 );
+
+	m_BorderWidth = m_TextWrap + 2;
+	m_BorderHeight = m_sTextChunks.size() + 2;
+
+	if (m_BorderHeight <= 2 || m_BorderWidth <= 2)
+	{
+		TRPG_ERROR("Border Height/Width is too small!");
+		return false;
+	}
+
+	if (m_BorderX + m_TextWrap + 2 > 127 || m_BorderY + m_sTextChunks.size() + 2 > 47)
+	{
+		TRPG_ERROR("Border x or border y write beyond the buffer size!");
+		return false;
+	}
+
+    return true;
 }
 
 void Typewriter::DrawBorder()
 {
+	m_Console.DrawPanel(m_BorderX, m_BorderY, m_BorderWidth + 1, m_BorderHeight + 1, m_BorderColor);
 }
 
 void Typewriter::ClearArea()
 {
+	for (int i = 0; i <= m_BorderHeight; i++)
+	{
+		for (int j = 0; j <= m_BorderWidth; j++)
+		{
+			m_Console.Write(m_BorderX + j, m_BorderY + i, L" ");
+		}
+	}
 }
 
 Typewriter::Typewriter(Console& console) : Typewriter(console, 1, 1, L"TODO: Set type writer text!", 50, 250)
