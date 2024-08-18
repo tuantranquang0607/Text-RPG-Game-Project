@@ -8,6 +8,7 @@
 #include "../Party.h"
 #include "../Inventory.h"
 #include "../utilities/Timer.h"
+#include "../utilities/Typewriter.h"
 
 class Console;
 class Keyboard;
@@ -36,11 +37,7 @@ private:
 	// m_Timer is an instance of the Timer class.
 	Timer m_Timer;
 
-	// m_TestPlayer is a unique_ptr that manages a Player object. 
-	// It automatically deletes the Player object when m_TestPlayer is destroyed.
-	/*std::unique_ptr<Player> m_TestPlayer;*/
-
-	/*Inventory m_TestInventory;*/
+	Typewriter m_TypeWriter;
 
 public:
 	// This is the constructor for the GameState class. It initializes the class with a Console, Keyboard, and StateMachine.

@@ -109,8 +109,7 @@ bool Typewriter::SetText(const std::wstring& text)
 			}
 			else
 			{
-				// Get rid of the new line character
-				text_holder.pop_back();
+				text_holder.pop_back(); // Get rid of the new line character
 			}
 
 			if (text_size > 0)
@@ -146,6 +145,7 @@ void Typewriter::UpdateText()
 	if (m_Timer.ElapsedMS() > m_TextSpeed * m_Index && m_TextIndex < m_sTextChunks.size() && m_Index < m_sText.size())
 	{
 		m_sCurrentText += m_sTextChunks[m_TextIndex][m_CharIndex];
+
 		if (m_CharIndex >= m_sTextChunks[m_TextIndex].size())
 		{
 			m_CharIndex = 0;
@@ -160,7 +160,7 @@ void Typewriter::UpdateText()
 		}
 	}
 
-	if (m_Index >= m_sText.size())
+	if (m_Index >= m_sText.size() + 1)
 	{
 		m_Timer.Stop();
 		m_bFinished = true;
