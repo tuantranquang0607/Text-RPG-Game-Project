@@ -18,7 +18,21 @@ GameState::GameState(Console& console, Keyboard& keyboard, StateMachine& stateMa
 	m_StateMachine(stateMachine), // Initialize the StateMachine reference
 	m_Selector(console, keyboard, { L"Start", L"Settings", L"Exit" }), // Initialize the Selector
 	m_Party{nullptr}, // Initialize the Party pointer to nullptr
-	m_Timer{} // Initialize the Timer
+	m_Timer{}, // Initialize the Timer
+	m_TypeWriter{ console,
+				  45,
+				  15,
+				  L"This is the new Typewriter\n"
+				  L"The Typewriter will be used for various dialogs within the game!"
+				  L"The Typewriter will be used for various dialogs within the game!"
+				  L"The Typewriter will be used for various dialogs within the game!"
+				  L"The Typewriter will be used for various dialogs within the game!"
+				  L"The Typewriter will be used for various dialogs within the game!"
+				  L"We will also use this for talking and yadda yadda?",
+				  60,
+				  50,
+				  WHITE,
+				  BLUE } // Initialize the Typewriter
 {
 	// Create a new Party object and assign it to m_Party
 	m_Party = std::make_unique<Party>();
@@ -84,7 +98,7 @@ void GameState::OnExit()
 // Method to update the GameState.
 void GameState::Update()
 {
-	
+	m_TypeWriter.UpdateText(); // Update the text in the Typewriter object.
 }
 
 // This function is responsible for drawing the game state on the console.
@@ -100,6 +114,9 @@ void GameState::Draw()
 
 	// Draw the selector.
 	m_Selector.Draw();
+
+	// Draw the Typewriter object.
+	m_TypeWriter.Draw(); 
 
 	// Draw the console.
 	m_Console.Draw();
