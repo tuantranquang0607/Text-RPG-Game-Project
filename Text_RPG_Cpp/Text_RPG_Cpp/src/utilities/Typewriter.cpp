@@ -138,8 +138,44 @@ bool Typewriter::SetText(const std::wstring& text)
 
 void Typewriter::UpdateText()
 {
+	if (!m_Timer.IsRunning() || m_bFinished)
+	{
+		return;
+	}
+
+	if (m_Timer.ElapsedMS() > m_TextSpeed * m_Index && m_TextIndex < m_sTextChunks.size() && m_Index < m_sText.size())
+	{
+		m_sCurrentText += m_sTextChunks[m_TextIndex][m_CharIndex];
+		if (m_CharIndex >= m_sTextChunks[m_TextIndex].size())
+		{
+			m_CharIndex = 0;
+			m_TextIndex++;
+			m_Y++;
+			m_sCurrentText.clear();
+		}
+		else
+		{
+			m_CharIndex++;
+			m_Index++;
+		}
+	}
+
+	if (m_Index >= m_sText.size())
+	{
+		m_Timer.Stop();
+		m_bFinished = true;
+	}
 }
 
-void Typewriter::Draw(bool showborder)
+void Typewriter::Draw(bool show_border)
 {
+	if (m_Timer.IsRunning())
+	{
+		m_Console.Write(m_X, m_Y, m_sCurrentText, m_TextColor);
+
+		if (show_border)
+		{
+			DrawBorder();
+		}
+	}
 }

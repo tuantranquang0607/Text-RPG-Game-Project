@@ -40,7 +40,7 @@ public:
 	inline void SetBorderColor(WORD color) { m_BorderColor = color; }
 
 	void UpdateText();
-	void Draw(bool showborder = true);
+	void Draw(bool show_border = true);
 
 	inline const bool IsFinished() const { return m_bFinished; }
 };
