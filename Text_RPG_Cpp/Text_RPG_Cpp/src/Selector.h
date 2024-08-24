@@ -40,8 +40,8 @@ private:
 	Console& m_Console;
 	Keyboard& m_Keyboard;
 
-	std::function<void(int, std::vector<T>)> m_OnSelection;
-	std::function<void(int, int, T)> m_OnDrawItems;
+	std::function<void( int, std::vector<T> )> m_OnSelection;
+	std::function<void( int, int, T )> m_OnDrawItems;
 	std::vector<T> m_Data;
 
 	SelectorParams m_Params;
@@ -85,52 +85,25 @@ public:
 	~Selector();
 
 	// Method to set the data for the selector.
-	void SetData(std::vector<T> data) 
-	{ 
-		m_Data = data;
-	};
+	void SetData(std::vector<T> data) { m_Data = data; };
 
 	// Method to get the data for the selector.
-	std::vector<T>& GetData() { return m_Data; }
+	std::vector<T>& GetData() { return m_Data; };
 
 	// Method to set the selection function for the selector.
-	/*
-	 * This sets the OnSelection function that MUST be overwritten for each new selector object.
-	 * What each selector does will vary; Therefore, this function should be updated for each new Selector object.
-	 * @param This takes in an std::function ~ func(int x, int y, T item).
-	 */
-	void SetSelectionFunc(std::function<void(int, std::vector<T>)> on_selection) 
-	{ 
-		m_OnSelection = on_selection; 
-	};
+	void SetSelectionFunc(std::function<void(int, std::vector<T>)> on_selection) { m_OnSelection = on_selection; };
 
 	// Method to set the draw function for the selector.
-	/*
-	 * This sets the DrawItem function that should be overwritten for each new selector object
-	 * @param This takes in an std::function ~ func(int x, int y, T item).
-	 */
-	void SetDrawFunc(std::function<void(int, int, T)> on_draw_item) 
-	{ 
-		m_OnDrawItems = on_draw_item; 
-	};
+	void SetDrawFunc(std::function<void(int, int, T)> on_draw_item) { m_OnDrawItems = on_draw_item; };
 
 	// Method to show the cursor.
-	void ShowCursor() 
-	{ 
-		m_bShowCursor = true; 
-	};
+	void ShowCursor() { m_bShowCursor = true; };
 
 	// Method to hide the cursor.
-	void HideCursor() 
-	{ 
-		m_bShowCursor = false; 
-	};
+	void HideCursor() { m_bShowCursor = false; };
 
 	// Method to get the index of the current selection.
-	const int GetIndex() 
-	{ 
-		return m_Params.currentX + (m_Params.currentY * m_Params.columns); 
-	};
+	const int GetIndex() { return m_Params.currentX + (m_Params.currentY * m_Params.columns); };
 
 	// This function is responsible for processing user inputs.
 	void ProcessInputs();
@@ -142,13 +115,13 @@ public:
 // This is a constructor for the Selector class. It initializes the class with a console, keyboard, data, and parameters.
 // It also sets the OnSelection and DrawItem functions to the class's own methods.
 template<typename T>
-inline Selector<T>::Selector(Console& console, Keyboard& keyboard, std::vector<T> data, SelectorParams params)
-	: Selector(console, 
-			   keyboard, 
-			   [this](int index, std::vector<T> data) { Selector::OnSelection(index, data); },
-			   [this](int x, int y, T item) { Selector::DrawItem(x, y, item); },
-			   data, 
-			   params)
+inline Selector<T>::Selector(Console& console, Keyboard& keyboard, std::vector<T> data, SelectorParams params) : 
+	Selector(console, 
+			 keyboard, 
+			 [this](int index, std::vector<T> data) { Selector::OnSelection(index, data); }, 
+			 [this](int x, int y, T item) { Selector::DrawItem(x, y, item); }, 
+			 data, 
+			 params)
 {
 
 }
@@ -156,13 +129,13 @@ inline Selector<T>::Selector(Console& console, Keyboard& keyboard, std::vector<T
 // This is another constructor for the Selector class. It initializes the class with a console, keyboard, data, and parameters.
 // It also sets the OnSelection and DrawItem functions to the provided functions.
 template<typename T>
-inline Selector<T>::Selector(Console& console,
+inline Selector<T>::Selector(Console& console, 
 							 Keyboard& keyboard, 
 							 std::function<void(int, std::vector<T>)> on_selection, 
 							 std::function<void(int, int, T)> on_draw_item, 
 							 std::vector<T> data, 
-							 SelectorParams params )
-	: m_Console(console), 
+							 SelectorParams params) : 
+	m_Console(console), 
 	m_Keyboard(keyboard), 
 	m_OnSelection(on_selection), 
 	m_OnDrawItems(on_draw_item), 
@@ -173,12 +146,8 @@ inline Selector<T>::Selector(Console& console,
 	// Initialize the rows member variable by dividing the size of the data by the number of columns.
 	m_Rows = std::ceil(m_Data.size() / (params.columns == 0 ? 1 : params.columns));
 
-	// Check to see if rows is < 1.
-	if (m_Rows < 1) 
-	{
-		// Set rows to 1.
-		m_Rows = 1;
-	}
+	// Check to see if rows is < 1 to set rows to 1.
+	if (m_Rows < 1) { m_Rows = 1; }
 }
 
 // This is the destructor for the Selector class. It doesn't do anything in this case.
@@ -253,13 +222,11 @@ inline void Selector<T>::DrawItem(int x, int y, T item)
 	if constexpr (std::is_same<T, std::wstring>::value) 
 	{
 		m_Console.Write(x, y, item);
-
 		return;
 	}
 
 	// Get the type and let user know to override
 	std::string type = typeid(item).name();
-
 	TRPG_ERROR("DATA type [" + type + "] - need to be a wstring. Please create the DrawItem funtion to override.");
 }
 
@@ -276,10 +243,7 @@ template<typename T>
 inline void Selector<T>::Draw()
 {
 	// If there is no data, nothing to draw.
-	if (m_Data.empty()) 
-	{
-		return;
-	}
+	if (m_Data.empty()) { return; }
 	
 	// Initialize variables for item index, position (x, y), row height, spacing, and maximum data size.
 	int itemIndex = 0;
@@ -334,7 +298,6 @@ inline void Selector<T>::Draw()
 			{
 				// Draw the item.
 				T item = m_Data[itemIndex];
-
 				m_OnDrawItems(x, y, item);
 
 				// Move to the next position.
