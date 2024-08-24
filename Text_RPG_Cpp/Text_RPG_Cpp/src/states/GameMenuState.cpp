@@ -141,7 +141,7 @@ void GameMenuState::OnPlayerSelect(int index, std::vector<std::shared_ptr<Player
 		m_StateMachine.PushState(std::make_unique<StatusMenuState>(*player, m_Console, m_StateMachine, m_Keyboard));
 		break;
 	case SelectType::ORDER: 
-
+		SetOrderPlacement(player->GetPartyPosition());
 		break;
 	default: 
 		break;
@@ -151,6 +151,57 @@ void GameMenuState::OnPlayerSelect(int index, std::vector<std::shared_ptr<Player
 // OnDrawPlayerSelect() is a method that would be used to draw the player selection on the console.
 void GameMenuState::OnDrawPlayerSelect(int x, int y, std::shared_ptr<Player> player)
 {
+}
+
+void GameMenuState::SetOrderPlacement(int playerPosition)
+{
+	if (m_FirstChoice < 0)
+	{
+		m_FirstChoice = playerPosition;
+	}
+	else if (m_SecondChoice < 0)
+	{
+		m_SecondChoice = playerPosition;
+	}
+}
+
+void GameMenuState::UpdatePlayerOrder()
+{
+	if (m_FirstChoice < 0 || m_SecondChoice < 0)
+	{
+		return;
+	}
+
+	for (auto& member : m_Party.GetParty())
+	{
+		if (member->GetPartyPosition() == m_FirstChoice)
+		{
+			member->SetPartyPosition(m_SecondChoice);
+		}
+		else if (member->GetPartyPosition() == m_SecondChoice)
+		{
+			member->SetPartyPosition(m_FirstChoice);
+		}
+	}
+
+	// sort the original data
+	std::sort(m_Party.GetParty().begin(), m_Party.GetParty().end(), [&](std::shared_ptr<Player>& rh, std::shared_ptr<Player>& lh)
+	{
+		return rh->GetPartyPosition() < lh->GetPartyPosition();
+	});
+
+	// sort the selector data
+	std::sort(m_PlayerSelector.GetData().begin(), m_PlayerSelector.GetData().end(), [&](std::shared_ptr<Player>& rh, std::shared_ptr<Player>& lh)
+	{
+		return rh->GetPartyPosition() < lh->GetPartyPosition();
+	});
+
+	m_FirstChoice = m_SecondChoice = -1;
+	m_bInMenuSelect = true;
+	m_eSelectType = SelectType::NONE;
+	m_MenuSelector.ShowCursor();
+	m_PlayerSelector.HideCursor();
+	m_Console.ClearBuffer();
 }
 
 // The constructor for the GameMenuState class initializes several member variables and sets up the menu and player selectors.
@@ -179,9 +230,11 @@ GameMenuState::GameMenuState(Party& party, Console& console, StateMachine& state
 	m_bInMenuSelect{ true },
 	m_ScreenWidth{ console.GetScreenWidth() },
 	m_ScreenHeight{ console.GetScreenHeight() },
-	m_CenterScreenW{console.GetHalfWidth()},
-	m_PanelBarX{m_CenterScreenW - (PANEL_BARS / 2)},
-	m_eSelectType{SelectType::NONE}
+	m_CenterScreenW{ console.GetHalfWidth() },
+	m_PanelBarX{ m_CenterScreenW - (PANEL_BARS / 2) },
+	m_FirstChoice{ -1 },
+	m_SecondChoice{ -1 },
+	m_eSelectType{ SelectType::NONE }
 {
 	m_MenuSelector.SetSelectionFunc(std::bind(&GameMenuState::OnMenuSelect, this, _1, _2));
 }
@@ -212,6 +265,7 @@ void GameMenuState::OnExit()
 // Draw() is a method that draws the game state on the console.
 void GameMenuState::Update()
 {
+	UpdatePlayerOrder();
 }
 
 // Draw() is a method that draws the game state on the console.
@@ -235,19 +289,23 @@ void GameMenuState::ProcessInputs()
 		if (m_Keyboard.IsKeyJustPressed(KEY_BACKSPACE)) 
 		{
 			m_StateMachine.PopState();
+
 			return;
 		}
 
 		m_MenuSelector.ProcessInputs();
 	}
-	else {
+	else 
+	{
 		if (m_Keyboard.IsKeyJustPressed(KEY_BACKSPACE)) 
 		{
 			m_PlayerSelector.HideCursor();
 			m_bInMenuSelect = true;
 			m_eSelectType = SelectType::NONE;
+			m_FirstChoice = m_SecondChoice = -1;
 			m_MenuSelector.ShowCursor();
 			m_Console.ClearBuffer();
+
 			return;
 		}
 
