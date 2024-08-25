@@ -79,6 +79,31 @@ Equipment::EquipType EquipTypeFromString(const std::string& equip_type)
 	}
 }
 
+// Function to convert a string to a ShopType enum.
+ShopParameters::ShopType ShopTypeFromString(const std::string& shopType)
+{
+	if (shopType == "Weapon")
+	{
+		return ShopParameters::ShopType::WEAPON;
+	}
+	else if (shopType == "Armor")
+	{
+		return ShopParameters::ShopType::ARMOR;
+	}
+	else if (shopType == "Accessory")
+	{
+		return ShopParameters::ShopType::ACCESSORY;
+	}
+	else if (shopType == "Item")
+	{
+		return ShopParameters::ShopType::ITEM;
+	}
+	else
+	{
+		return ShopParameters::ShopType::NOT_A_SHOP;
+	}
+}
+
 // Function to convert a string to a WeaponType enum.
 WeaponProperties::WeaponType WeaponTypeFromString(const std::string& weapon_type)
 {

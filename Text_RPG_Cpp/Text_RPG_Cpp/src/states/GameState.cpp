@@ -8,6 +8,7 @@
 #include "GameMenuState.h"
 #include "../utilities/ItemLoader.h"
 #include "../utilities/EquipmentLoader.h"
+#include "../utilities/ShopLoader.h"
 
 #include <cassert>
 
