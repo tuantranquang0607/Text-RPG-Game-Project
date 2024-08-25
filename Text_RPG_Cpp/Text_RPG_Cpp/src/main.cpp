@@ -1,6 +1,7 @@
 #include "Game.h"
 
-int main() {
+int main() 
+{
 	// Create an instance of the Game class.
 	Game game; 
 
