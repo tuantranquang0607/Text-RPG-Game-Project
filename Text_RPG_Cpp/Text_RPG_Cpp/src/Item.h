@@ -49,27 +49,35 @@ public:
 	virtual bool OnUse(Player& player) = 0;
 
 	// GtCount returns the count of the Item.
-	const int GetCount() const
+	inline const int GetCount() const
 	{
 		return m_Count;
 	}
 
 	// Decrement decreases the count of the Item by 1. If the count is less than or equal to 0, it sets the count to 0.
-	void Decrement()
+	inline bool Decrement(int num = 1)
 	{
-		if (m_Count > 0)
-		{
-			m_Count--;
-		}
-		
 		if (m_Count <= 0)
+		{
+			return false;
+		}
+		if (m_Count - num < 0)
+		{
+			return false;
+		}
+
+		m_Count--;
+
+		if (m_Count < 0)
 		{
 			m_Count = 0;
 		}
+
+		return true;
 	}
 
 	// AddItem increases the count of the Item by a specified number.
-	bool AddItem(int num)
+	bool AddItem(int num = 1)
 	{
 		if (m_Count + num > MAX_COUNT)
 		{
@@ -82,14 +90,39 @@ public:
 	}
 
 	// GetItemName returns the name of the Item.
-	const std::wstring GetItemName() const
-	{
-		return m_sItemName;
+	inline const std::wstring& GetItemName() const 
+	{ 
+		return m_sItemName; 
 	}
 
 	// GetDescription returns the description of the Item.
-	const std::wstring GetDescription() const
-	{
-		return m_sDescription;
+	inline const std::wstring& GetDescription() const 
+	{ 
+		return m_sDescription; 
+	}
+
+	inline const int GetBuyPrice() const 
+	{ 
+		return m_BuyPrice; 
+	}
+
+	inline const int GetSellPrice() const 
+	{ 
+		return m_SellPrice; 
+	}
+
+	inline const int GetMaxCount() const 
+	{ 
+		return MAX_COUNT; 
+	}
+
+	inline const ItemType GetType() const 
+	{ 
+		return m_eItemType; 
+	}
+
+	inline const int GetItemValue() const 
+	{ 
+		return m_ItemValue; 
 	}
 };

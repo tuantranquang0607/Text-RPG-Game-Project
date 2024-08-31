@@ -251,6 +251,16 @@ public:
 	{
 		return m_StatModifier;
 	}
+
+	inline const int GetBuyPrice() const
+	{
+		return m_BuyPrice;
+	}
+
+	inline const int GetSellPrice() const
+	{
+		return m_SellPrice;
+	}
 };
 
 // Class to represent a weapon that a player can use
