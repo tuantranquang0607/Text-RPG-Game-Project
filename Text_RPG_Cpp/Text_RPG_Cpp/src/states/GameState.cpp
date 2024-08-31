@@ -9,6 +9,7 @@
 #include "../utilities/ItemLoader.h"
 #include "../utilities/EquipmentLoader.h"
 #include "../utilities/ShopLoader.h"
+#include "ShopState.h"
 
 #include <cassert>
 
@@ -140,6 +141,13 @@ void GameState::ProcessInputs()
 	if (m_Keyboard.IsKeyJustPressed(KEY_M)) 
 	{
 		m_StateMachine.PushState(std::make_unique<GameMenuState>(*m_Party, m_Console, m_StateMachine, m_Keyboard));
+
+		return;
+	}
+
+	if (m_Keyboard.IsKeyJustPressed(KEY_ENTER))
+	{
+		m_StateMachine.PushState(std::make_unique<ShopState>( *m_Party, m_Console, m_StateMachine, m_Keyboard, "./assets/xml_files/WeaponShopDef_1.xml" ));
 
 		return;
 	}
