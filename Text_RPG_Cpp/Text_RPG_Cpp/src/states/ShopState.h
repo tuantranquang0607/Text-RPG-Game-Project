@@ -15,6 +15,8 @@ class Equipment;
 class ShopState : public IState
 {
 private:
+	const int PANEL_BARS = 90;
+
 	Party& m_Party;
 	Console& m_Console;
 	StateMachine& m_StateMachine;
@@ -27,13 +29,18 @@ private:
 	Selector<std::shared_ptr<Equipment>> m_EquipmentSelector;
 	Selector<std::shared_ptr<Item>> m_ItemSelector;
 
-	int m_Quantity, m_Price;
+	int m_Quantity, m_Price, m_ScreenWidth, m_ScreenHeight, m_CenterScreenW, m_PanelBarX, m_AvailableSellQunatity;
 	bool m_bInShopSelect, m_bInItemBuy, m_bInItemSell, m_bSetFuncs, m_bIsEquipmentShop, m_bExitShop, m_bBuySellItem;
 
 	void DrawShop();
 	void DrawBuyItems();
 	void DrawItemsBox();
 	void ResetSelections();
+
+	void BuyEquipment();
+	void SellEquipment();
+	void BuyItems();
+	void SellItems();
 
 	// Selector Functions
 	void OnShopMenuSelect(int index, std::vector<std::wstring> data);

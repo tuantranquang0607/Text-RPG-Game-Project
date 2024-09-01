@@ -27,13 +27,13 @@ public:
 	~Inventory() = default;
 
 	// GetItems returns a const reference to the vector of items in the inventory.
-	const std::vector<std::shared_ptr<Item>>& GetItems()
+	std::vector<std::shared_ptr<Item>>& GetItems()
 	{
 		return m_Items;
 	}
 
 	// GetEquipment returns a const reference to the vector of equipment in the inventory.
-	const std::vector<std::shared_ptr<Equipment>>& GetEquipment()
+	std::vector<std::shared_ptr<Equipment>>& GetEquipment()
 	{
 		return m_Equipment;
 	}

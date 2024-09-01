@@ -147,7 +147,7 @@ void GameState::ProcessInputs()
 
 	if (m_Keyboard.IsKeyJustPressed(KEY_ENTER))
 	{
-		m_StateMachine.PushState(std::make_unique<ShopState>( *m_Party, m_Console, m_StateMachine, m_Keyboard, "./assets/xml_files/WeaponShopDef_1.xml" ));
+		m_StateMachine.PushState(std::make_unique<ShopState>( *m_Party, m_Console, m_StateMachine, m_Keyboard, "./assets/xml_files/WeaponShopDef.xml" ));
 
 		return;
 	}
