@@ -85,7 +85,17 @@ public:
 	~Selector();
 
 	// Method to set the data for the selector.
-	void SetData(std::vector<T> data) { m_Data = data; };
+	void SetData(std::vector<T> data) 
+	{ 
+		m_Data = data; 
+		m_Rows = static_cast<int>(std::ceil(m_Data.size() / (m_Params.columns == 0 ? 1 : m_Params.columns)));
+
+		// Check to see if rows is < 1
+		if (m_Rows < 1)
+		{
+			m_Rows = 1;
+		}
+	};
 
 	// Method to get the data for the selector.
 	std::vector<T>& GetData() { return m_Data; };

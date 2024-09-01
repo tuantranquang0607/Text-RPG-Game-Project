@@ -215,7 +215,7 @@ public:
 		return m_sDescription;
 	}
 
-	inline bool Add(int num)
+	inline bool Add(int num = 1)
 	{
 		if (m_Count + num > MAX_COUNT)
 		{
@@ -223,6 +223,28 @@ public:
 		}
 
 		m_Count += num;
+
+		return true;
+	}
+
+	inline bool Decrement(int num = 1)
+	{
+		if (m_Count <= 0)
+		{
+			return false;
+		}
+
+		if (m_Count - num < 0)
+		{
+			return false;
+		}
+
+		m_Count--;
+
+		if (m_Count < 0)
+		{
+			m_Count = 0;
+		}
 
 		return true;
 	}
@@ -260,6 +282,11 @@ public:
 	inline const int GetSellPrice() const
 	{
 		return m_SellPrice;
+	}
+
+	inline const int GetMaxCount() const
+	{
+		return MAX_COUNT;
 	}
 };
 

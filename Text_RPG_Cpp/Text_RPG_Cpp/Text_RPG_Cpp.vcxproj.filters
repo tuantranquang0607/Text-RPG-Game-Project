@@ -212,5 +212,6 @@
     <Xml Include="assets\xml_files\WeaponDefs.xml" />
     <Xml Include="assets\xml_files\ArmorDefs.xml" />
     <Xml Include="assets\xml_files\ArmorShopDef.xml" />
+    <Xml Include="assets\xml_files\WeaponShopDef.xml" />
   </ItemGroup>
 </Project>
