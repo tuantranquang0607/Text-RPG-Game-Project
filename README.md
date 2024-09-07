@@ -2,8 +2,6 @@
 
 I made this project a practice and inception for my final video game project using C++ because I would need an actual video game to graduate.<br><br>
 
-Source: https://youtu.be/B2RPgKxsEVs?si=HYEp-2M8BCUB6IZz <br>
-Source Code: https://github.com/dwjclark11/TextRPG
 
 TinyXML2: https://github.com/leethomason/tinyxml2 <br>
 Microsoft Learn reference: https://learn.microsoft.com/en-us/ <br>
